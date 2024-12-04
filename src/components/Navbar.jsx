@@ -56,17 +56,12 @@ const Navbar = () => {
       {/* Right: Login/Register */}
       <div className="hidden md:flex items-center gap-3">
         <Link
-          to="/login"
+          to="/auth/login"
           className="btn btn-primary btn-sm bg-yellow-400 dark:bg-yellow-500 text-gray-800 dark:text-gray-900 hover:bg-yellow-500 dark:hover:bg-yellow-600"
         >
           Login
         </Link>
-        <Link
-          to="/register"
-          className="btn btn-secondary btn-sm bg-blue-500 dark:bg-blue-600 text-white hover:bg-blue-600 dark:hover:bg-blue-700"
-        >
-          Register
-        </Link>
+
       </div>
 
       {/* Mobile Menu Toggle */}
@@ -134,14 +129,14 @@ const Navbar = () => {
             </Link>
             <div className="flex gap-3 w-full">
               <Link
-                to="/login"
+                to="/auth/login"
                 className="btn btn-primary btn-sm w-full text-center border-none bg-yellow-400 dark:bg-yellow-500 text-gray-800 dark:text-gray-900 hover:bg-yellow-500 dark:hover:bg-yellow-600"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Login
               </Link>
               <Link
-                to="/register"
+                to="/auth/register"
                 className="btn btn-secondary btn-sm w-full text-center bg-blue-500 dark:bg-blue-600 text-white hover:bg-blue-600 dark:hover:bg-blue-700"
                 onClick={() => setIsMenuOpen(false)}
               >
