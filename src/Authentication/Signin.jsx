@@ -79,12 +79,12 @@ const Signin = () => {
                     </label>
                   </div>
                 </div>
-                <span
+                <Link to="/auth/forgot"
                   
                   className="text-sm font-medium text-blue-600 hover:underline cursor-pointer"
                 >
                   Forgot password?
-                </span>
+                </Link>
               </div>
 
               {/* Submit Button */}

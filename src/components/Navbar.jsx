@@ -1,12 +1,20 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; 
 import logo from "../assets/logo.png";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../provider/AuthProvider";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/auth/login"); // Redirect to login after logout
+  };
 
   return (
-    <nav className="navbar bg-base-200 dark:bg-gray-900 shadow-lg px-5 text-gray-800 dark:text-gray-200">
+    <div className="flex items-center justify-between bg-base-200 dark:bg-gray-900 shadow-lg px-5 py-4 text-gray-800 dark:text-gray-200">
       {/* Left: Logo and Title */}
       <div className="flex items-center">
         <img
@@ -20,7 +28,7 @@ const Navbar = () => {
       </div>
 
       {/* Middle: Links */}
-      <div className="hidden md:flex gap-5 mx-auto">
+      <div className="hidden justify-center items-center text-center md:flex gap-5 mx-auto">
         <Link
           to="/"
           className="btn btn-ghost normal-case hover:bg-gray-300 dark:hover:bg-gray-700"
@@ -33,35 +41,58 @@ const Navbar = () => {
         >
           All Visas
         </Link>
-        <Link
-          to="/add-visa"
-          className="btn btn-ghost normal-case hover:bg-gray-300 dark:hover:bg-gray-700"
-        >
-          Add Visa
-        </Link>
-        <Link
-          to="/my-added-visas"
-          className="btn btn-ghost normal-case hover:bg-gray-300 dark:hover:bg-gray-700"
-        >
-          My Added Visas
-        </Link>
-        <Link
-          to="/my-visa-applications"
-          className="btn btn-ghost normal-case hover:bg-gray-300 dark:hover:bg-gray-700"
-        >
-          My Visa Applications
-        </Link>
+        {user && (
+          <>
+            <Link
+              to="/add-visa"
+              className="btn btn-ghost normal-case hover:bg-gray-300 dark:hover:bg-gray-700"
+            >
+              Add Visa
+            </Link>
+            <Link
+              to="/my-added-visas"
+              className="btn btn-ghost normal-case hover:bg-gray-300 dark:hover:bg-gray-700"
+            >
+              My Added Visas
+            </Link>
+            <Link
+              to="/my-visa-applications"
+              className="btn btn-ghost normal-case hover:bg-gray-300 dark:hover:bg-gray-700"
+            >
+              My Visa Applications
+            </Link>
+          </>
+        )}
       </div>
 
-      {/* Right: Login/Register */}
+      {/* Right: User or Login/Register */}
       <div className="hidden md:flex items-center gap-3">
-        <Link
-          to="/auth/login"
-          className="btn btn-primary btn-sm bg-yellow-400 dark:bg-yellow-500 text-gray-800 dark:text-gray-900 hover:bg-yellow-500 dark:hover:bg-yellow-600"
-        >
-          Login
-        </Link>
+        {user ? (
+          <div className="relative">
+            <img
+              src={user.photoURL}
+              alt={user.displayName}
+              className="w-10 h-10 rounded-full cursor-pointer"
+              title={user.displayName} // Show display name on hover
+            />
+            <button
+              onClick={handleLogout}
+              className="btn border-none btn-primary btn-sm bg-yellow-400 dark:bg-yellow-500 text-gray-800 dark:text-gray-900 hover:bg-yellow-500 dark:hover:bg-yellow-600"
+            >
+              Logout
+            </button>
+          </div>
+        ) : (
+          <>
+            <Link
+              to="/auth/login"
+              className="btn border-none btn-primary btn-sm bg-yellow-400 dark:bg-yellow-500 text-gray-800 dark:text-gray-900 hover:bg-yellow-500 dark:hover:bg-yellow-600"
+            >
+              Login
+            </Link>
 
+          </>
+        )}
       </div>
 
       {/* Mobile Menu Toggle */}
@@ -106,47 +137,54 @@ const Navbar = () => {
             >
               All Visas
             </Link>
-            <Link
-              to="/add-visa"
-              className="btn btn-ghost normal-case w-full text-left hover:bg-gray-300 dark:hover:bg-gray-700"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Add Visa
-            </Link>
-            <Link
-              to="/my-added-visas"
-              className="btn btn-ghost normal-case w-full text-left hover:bg-gray-300 dark:hover:bg-gray-700"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              My Added Visas
-            </Link>
-            <Link
-              to="/my-visa-applications"
-              className="btn btn-ghost normal-case w-full text-left hover:bg-gray-300 dark:hover:bg-gray-700"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              My Visa Applications
-            </Link>
-            <div className="flex gap-3 w-full">
-              <Link
-                to="/auth/login"
+            {user && (
+              <>
+                <Link
+                  to="/add-visa"
+                  className="btn btn-ghost normal-case w-full text-left hover:bg-gray-300 dark:hover:bg-gray-700"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Add Visa
+                </Link>
+                <Link
+                  to="/my-added-visas"
+                  className="btn btn-ghost normal-case w-full text-left hover:bg-gray-300 dark:hover:bg-gray-700"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  My Added Visas
+                </Link>
+                <Link
+                  to="/my-visa-applications"
+                  className="btn btn-ghost normal-case w-full text-left hover:bg-gray-300 dark:hover:bg-gray-700"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  My Visa Applications
+                </Link>
+              </>
+            )}
+            {user ? (
+              <button
+                onClick={handleLogout}
                 className="btn btn-primary btn-sm w-full text-center border-none bg-yellow-400 dark:bg-yellow-500 text-gray-800 dark:text-gray-900 hover:bg-yellow-500 dark:hover:bg-yellow-600"
-                onClick={() => setIsMenuOpen(false)}
               >
-                Login
-              </Link>
-              <Link
-                to="/auth/register"
-                className="btn btn-secondary btn-sm w-full text-center bg-blue-500 dark:bg-blue-600 text-white hover:bg-blue-600 dark:hover:bg-blue-700"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Register
-              </Link>
-            </div>
+                Logout
+              </button>
+            ) : (
+              <>
+                <Link
+                  to="/auth/login"
+                  className="btn btn-primary btn-sm w-full text-center border-none bg-yellow-400 dark:bg-yellow-500 text-gray-800 dark:text-gray-900 hover:bg-yellow-500 dark:hover:bg-yellow-600"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Login
+                </Link>
+
+              </>
+            )}
           </div>
         </div>
       )}
-    </nav>
+    </div>
   );
 };
 

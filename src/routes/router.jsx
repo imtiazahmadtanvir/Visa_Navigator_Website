@@ -7,8 +7,10 @@ import MyAddedVisas from "../pages/MyAddedVisas";
 import MyVisaApplication from "../pages/MyVisaApplication";
 import VisaDetails from "../pages/VisaDetails";
 // import AuthLayout from "../layouts/AuthLayout";
-import Signin from "../pages/Signin";
+import Signin from "../Authentication/Signin";
 import AuthLayout from "../layouts/AuthLayout";
+import Register from "../Authentication/Register";
+import ForgotPassword from "../Authentication/ForgotPassword";
 
 
 const router = createBrowserRouter([
@@ -58,9 +60,16 @@ const router = createBrowserRouter([
       },
       {
         path: "/auth/register",
-        element: <Signin />,
+        element: <Register></Register>,
         errorElement: <Errorpage></Errorpage>,
       },
+      {
+
+          path: "/auth/forgot",
+          element: <ForgotPassword></ForgotPassword>,
+          errorElement: <Errorpage></Errorpage>,
+        
+      }
 
     ]
   }

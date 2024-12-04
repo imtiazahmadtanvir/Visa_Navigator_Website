@@ -6,7 +6,7 @@ import Navbar from "../components/Navbar";
 const AuthLayout = () => {
     return (
         <div>
-            <div className="font-poppins bg-gray-800">
+            <div className=" bg-gray-800">
                 <div className=" w-full">
                 <Navbar></Navbar>
                 </div>

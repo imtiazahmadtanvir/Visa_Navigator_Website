@@ -2,6 +2,13 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import german from "../assets/germany.webp"
+import india from "../assets/india.webp"
+import japan from "../assets/japan.jpg"
+import aus from "../assets/Australia.webp"
+import can from "../assets/Canada.jpg"
+import usa from "../assets/india.webp"
+import PropTypes from 'prop-types'; // Import PropTypes for validation
 
 // Visa Card Component
 const VisaCard = ({ visa }) => {
@@ -35,7 +42,7 @@ const AllVisas = () => {
       {
         "id": 1,
         "country": "Germany",
-        "countryImage": "https://via.placeholder.com/100x60?text=Germany",
+        "countryImage": german,
         "visaType": "Tourist Visa",
         "processingTime": "15 days",
         "fee": "50 USD",
@@ -45,7 +52,7 @@ const AllVisas = () => {
       {
         "id": 2,
         "country": "Canada",
-        "countryImage": "https://via.placeholder.com/100x60?text=Canada",
+        "countryImage": can,
         "visaType": "Student Visa",
         "processingTime": "20 days",
         "fee": "80 USD",
@@ -55,7 +62,7 @@ const AllVisas = () => {
       {
         "id": 3,
         "country": "Australia",
-        "countryImage": "https://via.placeholder.com/100x60?text=Australia",
+        "countryImage": aus,
         "visaType": "Tourist Visa",
         "processingTime": "10 days",
         "fee": "60 USD",
@@ -65,7 +72,7 @@ const AllVisas = () => {
       {
         "id": 4,
         "country": "Japan",
-        "countryImage": "https://via.placeholder.com/100x60?text=Japan",
+        "countryImage": japan,
         "visaType": "Business Visa",
         "processingTime": "5 days",
         "fee": "100 USD",
@@ -75,7 +82,7 @@ const AllVisas = () => {
       {
         "id": 5,
         "country": "India",
-        "countryImage": "https://via.placeholder.com/100x60?text=India",
+        "countryImage": india,
         "visaType": "Tourist Visa",
         "processingTime": "15 days",
         "fee": "40 USD",
@@ -84,8 +91,8 @@ const AllVisas = () => {
       },
       {
         "id": 6,
-        "country": "UK",
-        "countryImage": "https://via.placeholder.com/100x60?text=UK",
+        "country": "USA",
+        "countryImage": usa,
         "visaType": "Student Visa",
         "processingTime": "20 days",
         "fee": "90 USD",
@@ -115,5 +122,19 @@ const AllVisas = () => {
 </div>
   );
 };
+
+// PropTypes for the VisaCard component
+VisaCard.propTypes = {
+  visa: PropTypes.shape({
+    country: PropTypes.string.isRequired,
+    countryImage: PropTypes.string.isRequired,
+    visaType: PropTypes.string.isRequired,
+    processingTime: PropTypes.string.isRequired,
+    fee: PropTypes.string.isRequired,
+    validity: PropTypes.string.isRequired,
+    applicationMethod: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
 
 export default AllVisas;
