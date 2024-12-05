@@ -11,6 +11,8 @@ import Signin from "../Authentication/Signin";
 import AuthLayout from "../layouts/AuthLayout";
 import Register from "../Authentication/Register";
 import ForgotPassword from "../Authentication/ForgotPassword";
+import Profile from "../pages/Profile";
+import PrivateRoute from "./PrivateRoute";
 
 
 const router = createBrowserRouter([
@@ -27,19 +29,19 @@ const router = createBrowserRouter([
   },
   {
     path: "/add-visa",
-    element: <AddVisa></AddVisa>,
+    element:<PrivateRoute><AddVisa></AddVisa></PrivateRoute> ,
     errorElement: <Errorpage></Errorpage>,
 
   },
   {
     path: "/my-added-visas",
-    element: <MyAddedVisas></MyAddedVisas>,
+    element:<PrivateRoute><MyAddedVisas></MyAddedVisas></PrivateRoute>,
     errorElement: <Errorpage></Errorpage>,
 
   },
   {
     path: "/my-visa-applications",
-    element: <MyVisaApplication></MyVisaApplication>,
+    element:<PrivateRoute> <MyVisaApplication></MyVisaApplication></PrivateRoute>,
     errorElement: <Errorpage></Errorpage>,
 
   },
@@ -48,6 +50,14 @@ const router = createBrowserRouter([
     element: <VisaDetails></VisaDetails>,
     errorElement: <Errorpage></Errorpage>,
 
+  },
+  {
+
+      path:"/profile",
+      element: <Profile></Profile>,
+      errorElement: <Errorpage></Errorpage>,
+  
+    
   },
   {
     path:"auth",
