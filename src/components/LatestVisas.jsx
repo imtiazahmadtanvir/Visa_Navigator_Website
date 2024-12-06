@@ -75,7 +75,7 @@ const LatestVisas = () => {
                 Application Method: {visa.application_method}
               </p>
               <Link
-                to={`/visa-details/${visa.id}`}
+                to={`/visa-details/?${visa.id}`}
                 className="btn btn-primary mt-4 w-full"
               >
                 See Details

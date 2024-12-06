@@ -1,37 +1,77 @@
-import { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+// import { data } from "react-router-dom";
+import Swal from 'sweetalert2'
 
 const AddVisa = () => {
-  const [formData, setFormData] = useState({
-    countryImage: "",
-    countryName: "",
-    visaType: "",
-    processingTime: "",
-    requiredDocuments: [],
-    description: "",
-    ageRestriction: "",
-    fee: "",
-    validity: "",
-    applicationMethod: "",
-  });
+  const handleAddVisa = (event) => {
+    event.preventDefault();
+    const form = event.target;
 
-  const handleCheckboxChange = (event) => {
-    const { value, checked } = event.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      requiredDocuments: checked
-        ? [...prevData.requiredDocuments, value]
-        : prevData.requiredDocuments.filter((doc) => doc !== value),
-    }));
-  };
+    const countryImage = form.countryImage.value;
+    const countryName = form.countryName.value;
+    const visaType = form.visaType.value;
+    const processingTime = form.processingTime.value;
+    const requiredDocuments = Array.from(
+      form.querySelectorAll('input[type="checkbox"]:checked')
+    ).map((checkbox) => checkbox.value);
+    const description = form.description.value;
+    const ageRestriction = form.ageRestriction.value;
+    const fee = form.fee.value;
+    const validity = form.validity.value;
+    const applicationMethod = form.applicationMethod.value;
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    // Example data submission logic (replace with your API endpoint)
+    const visaData = {
+      countryImage,
+      countryName,
+      visaType,
+      processingTime,
+      requiredDocuments,
+      description,
+      ageRestriction,
+      fee,
+      validity,
+      applicationMethod,
+    };
+
+    console.log("Visa Data:", visaData);
+
+    fetch('http://localhost:5000/add-visa', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(visaData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.insertedId) {
+          Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: `Visa for ${visaData.countryName} added successfully!`,
+            showConfirmButton: false,
+            timer: 2000,
+          });
+        }
+        
+
+        // Swal("Visa added successfully!");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Failed to add visa. Please try again.",
+        });        
+      });
+    
+
+    // Reset the form after submission
+    form.reset();
   };
 
   return (
@@ -47,7 +87,7 @@ const AddVisa = () => {
           <div className="card-body">
             <h2 className="text-center text-2xl font-bold">Add Visa</h2>
 
-            <form>
+            <form onSubmit={handleAddVisa}>
               {/* Country Image */}
               <div className="form-control">
                 <label className="label">
@@ -57,9 +97,8 @@ const AddVisa = () => {
                   type="text"
                   name="countryImage"
                   placeholder="Enter image URL"
-                  value={formData.countryImage}
-                  onChange={handleInputChange}
                   className="input input-bordered"
+                  required
                 />
               </div>
 
@@ -72,9 +111,8 @@ const AddVisa = () => {
                   type="text"
                   name="countryName"
                   placeholder="Enter country name"
-                  value={formData.countryName}
-                  onChange={handleInputChange}
                   className="input input-bordered"
+                  required
                 />
               </div>
 
@@ -83,12 +121,7 @@ const AddVisa = () => {
                 <label className="label">
                   <span className="label-text">Visa Type</span>
                 </label>
-                <select
-                  name="visaType"
-                  value={formData.visaType}
-                  onChange={handleInputChange}
-                  className="select select-bordered"
-                >
+                <select name="visaType" className="select select-bordered" required>
                   <option value="">Select visa type</option>
                   <option value="Tourist visa">Tourist Visa</option>
                   <option value="Student visa">Student Visa</option>
@@ -105,9 +138,8 @@ const AddVisa = () => {
                   type="text"
                   name="processingTime"
                   placeholder="e.g., 10-15 days"
-                  value={formData.processingTime}
-                  onChange={handleInputChange}
                   className="input input-bordered"
+                  required
                 />
               </div>
 
@@ -125,9 +157,8 @@ const AddVisa = () => {
                     <label key={doc} className="flex items-center gap-2">
                       <input
                         type="checkbox"
+                        name="requiredDocuments"
                         value={doc}
-                        checked={formData.requiredDocuments.includes(doc)}
-                        onChange={handleCheckboxChange}
                         className="checkbox checkbox-primary"
                       />
                       <span>{doc}</span>
@@ -144,9 +175,8 @@ const AddVisa = () => {
                 <textarea
                   name="description"
                   placeholder="Enter description"
-                  value={formData.description}
-                  onChange={handleInputChange}
                   className="textarea textarea-bordered"
+                  required
                 ></textarea>
               </div>
 
@@ -159,9 +189,8 @@ const AddVisa = () => {
                   type="number"
                   name="ageRestriction"
                   placeholder="Enter minimum age"
-                  value={formData.ageRestriction}
-                  onChange={handleInputChange}
                   className="input input-bordered"
+                  required
                 />
               </div>
 
@@ -174,9 +203,8 @@ const AddVisa = () => {
                   type="number"
                   name="fee"
                   placeholder="Enter fee amount"
-                  value={formData.fee}
-                  onChange={handleInputChange}
                   className="input input-bordered"
+                  required
                 />
               </div>
 
@@ -189,9 +217,8 @@ const AddVisa = () => {
                   type="text"
                   name="validity"
                   placeholder="e.g., 6 months"
-                  value={formData.validity}
-                  onChange={handleInputChange}
                   className="input input-bordered"
+                  required
                 />
               </div>
 
@@ -204,15 +231,14 @@ const AddVisa = () => {
                   type="text"
                   name="applicationMethod"
                   placeholder="e.g., Online"
-                  value={formData.applicationMethod}
-                  onChange={handleInputChange}
                   className="input input-bordered"
+                  required
                 />
               </div>
 
               {/* Add Visa Button */}
               <div className="form-control mt-6">
-                <button type="button" className="btn btn-primary">
+                <button type="submit" className="btn btn-primary">
                   Add Visa
                 </button>
               </div>

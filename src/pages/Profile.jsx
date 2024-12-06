@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "../provider/AuthProvider"; 
 import { Link } from "react-router-dom"; 
-import Footer from "../components/Footer"; 
+// import Footer from "../components/Footer"; 
 import defaultPic from "../assets/defulteimage.png"; // Default image for user avatar
 import Navbar from "../components/Navbar";
 
@@ -51,7 +51,7 @@ const Profile = () => {
       </div>
 
       {/* Footer Component */}
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };
