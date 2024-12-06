@@ -24,6 +24,7 @@ const router = createBrowserRouter([
   {
     path: "/all-visas",
     element: <AllVisas></AllVisas>,
+    loader:()=>fetch('http://localhost:5000/add-visa'),
     errorElement: <Errorpage></Errorpage>,
 
   },
@@ -49,6 +50,7 @@ const router = createBrowserRouter([
   {
     path:"/visa-details",
     element:<PrivateRoute><VisaDetails></VisaDetails></PrivateRoute>,
+    loader:()=>fetch(`http://localhost:5000/add-visa`),
     errorElement: <Errorpage></Errorpage>,
 
   },
