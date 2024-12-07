@@ -24,7 +24,7 @@ const router = createBrowserRouter([
   {
     path: "/all-visas",
     element: <AllVisas></AllVisas>,
-    loader:()=>fetch('https://visa-navigator-server-omega.vercel.app/add-visa'),
+    loader:()=>fetch("https://visa-navigator-server-omega.vercel.app/add-visa"),
     errorElement: <Errorpage></Errorpage>,
 
   },
@@ -37,28 +37,28 @@ const router = createBrowserRouter([
   {
     path: "/my-added-visas",
     element:<PrivateRoute><MyAddedVisas></MyAddedVisas></PrivateRoute>,
-    loader:()=>fetch('https://visa-navigator-server-omega.vercel.app/add-visa'),
+    loader:()=>fetch("https://visa-navigator-server-omega.vercel.app/add-visa"),
     errorElement: <Errorpage></Errorpage>,
 
   },
   {
     path: "/my-visa-applications",
     element:<PrivateRoute> <MyVisaApplication></MyVisaApplication></PrivateRoute>,
-    loader:()=>fetch('https://visa-navigator-server-omega.vercel.app/apply-visa'),
+    loader:()=>fetch("https://visa-navigator-server-omega.vercel.app/apply-visa"),
     errorElement: <Errorpage></Errorpage>,
 
   },
   {
     path:"/add-visa/:id",
     element:<PrivateRoute><VisaDetails></VisaDetails></PrivateRoute>,
-    loader:({params})=>fetch(`https://visa-navigator-server-6rerc8wv7-imtiazs-projects-e3424ac1.vercel.app/add-visa/${params.id}`),
+    loader:({params})=>fetch(`https://visa-navigator-server-omega.vercel.app/add-visa/${params.id}`),
     errorElement: <Errorpage></Errorpage>,
 
   },
   {
 
       path:"/profile",
-      element: <Profile></Profile>,
+      element: <PrivateRoute><Profile></Profile></PrivateRoute>,
       errorElement: <Errorpage></Errorpage>,
   
     

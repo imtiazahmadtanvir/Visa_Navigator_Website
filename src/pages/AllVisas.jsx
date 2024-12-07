@@ -73,7 +73,7 @@ const AllVisas = () => {
                   <strong>Fee:</strong> ${visa.fee}
                 </p>
                 <div className="card-actions justify-end">
-                  <Link to={`/visa-details/${visa._id}`} className="btn btn-primary">
+                  <Link to={`/add-visa/${visa._id}`} className="btn btn-primary">
                     See Details
                   </Link>
                 </div>

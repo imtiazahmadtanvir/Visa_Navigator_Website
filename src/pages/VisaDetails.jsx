@@ -1,85 +1,69 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import { useState } from "react";
-import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
 
 const VisaDetails = () => {
   const Loaderddata = useLoaderData();
+  const navigate = useNavigate(); // For navigation
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [email, setEmail] = useState(""); // Logged-in user's email
+  const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [appliedDate] = useState(new Date().toLocaleDateString());
   const [fee] = useState(Loaderddata.fee);
+  const [loading, setLoading] = useState(false);
 
-  // Handle the modal form submission
-  const handleAddVisa = (event) => {
-    event.preventDefault();
-    const form = event.target;
+  // Handle form submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true);
 
-    // Collect data from the form
-    const countryImage = form.countryImage.value;
-    const countryName = form.countryName.value;
-    const visaType = form.visaType.value;
-    const processingTime = form.processingTime.value;
-    const validity = form.validity.value;
-
-    // Collecting other visible form data
-    const email = form.email.value;
-    const firstName = form.firstName.value;
-    const lastName = form.lastName.value;
-    const appliedDate = form.appliedDate.value;
-    const fee = form.fee.value;
-
-    const visaData = {
-      countryImage,
-      countryName,
-      visaType,
-      processingTime,
-      validity,
+    const applicationData = {
       email,
       firstName,
       lastName,
       appliedDate,
       fee,
+      visaId: Loaderddata._id,
+      country: Loaderddata.countryName,
+      countryImage: Loaderddata.countryImage,
+      visaType: Loaderddata.visaType,
+      processingTime: Loaderddata.processingTime,
+      validity: Loaderddata.validity,
     };
 
-    // Send the data to the server
-    fetch("https://visa-navigator-server-6rerc8wv7-imtiazs-projects-e3424ac1.vercel.app/apply-visa", {
+    // Send data to the server
+    fetch("https://visa-navigator-server-omega.vercel.app/apply-visa", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(visaData),
+      body: JSON.stringify(applicationData),
     })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
-          Swal.fire({
-            position: "top-center",
-            icon: "success",
-            title: `Visa application for ${visaData.countryName} submitted successfully!`,
-            showConfirmButton: false,
-            timer: 2000,
-          }).then(() => {
-            setIsModalOpen(false); // Close the modal after success
-            form.reset(); // Reset the form
-          });
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
         }
+        return response.json();
+      })
+      .then((data) => {
+        setLoading(false);
+        // console.log("API Response:", data); // Debug response structure
+        navigate("/");
       })
       .catch((error) => {
-        error("Error:", error);
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Failed to submit your visa application. Please try again.",
-        });
+        setLoading(false);
+        console.error("Error:", error); 
+        navigate("/");
       });
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+    setEmail("");
+    setFirstName("");
+    setLastName("");
   };
 
   return (
@@ -102,18 +86,18 @@ const VisaDetails = () => {
         </div>
       </div>
 
-      {/* Modal for application form */}
+      {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
           <div className="bg-white p-6 rounded shadow-lg w-96">
             <h3 className="text-xl font-bold mb-4">Visa Application Form</h3>
-            <form onSubmit={handleAddVisa}>
+            <form onSubmit={handleSubmit}>
               {/* Hidden Fields */}
-              <input type="hidden" name="countryImage" value={Loaderddata.countryImage} />
-              <input type="hidden" name="countryName" value={Loaderddata.countryName} />
-              <input type="hidden" name="visaType" value={Loaderddata.visaType} />
-              <input type="hidden" name="processingTime" value={Loaderddata.processingTime} />
-              <input type="hidden" name="validity" value={Loaderddata.validity} />
+              <input type="hidden" value={Loaderddata.countryName} name="country" />
+              <input type="hidden" value={Loaderddata.countryImage} name="countryImage" />
+              <input type="hidden" value={Loaderddata.visaType} name="visaType" />
+              <input type="hidden" value={Loaderddata.processingTime} name="processingTime" />
+              <input type="hidden" value={Loaderddata.validity} name="validity" />
 
               {/* Visible Fields */}
               <div className="form-control mb-4">
@@ -122,7 +106,6 @@ const VisaDetails = () => {
                 </label>
                 <input
                   type="email"
-                  name="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="input input-bordered w-full"
@@ -137,7 +120,6 @@ const VisaDetails = () => {
                 </label>
                 <input
                   type="text"
-                  name="firstName"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   className="input input-bordered w-full"
@@ -152,7 +134,6 @@ const VisaDetails = () => {
                 </label>
                 <input
                   type="text"
-                  name="lastName"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                   className="input input-bordered w-full"
@@ -167,7 +148,6 @@ const VisaDetails = () => {
                 </label>
                 <input
                   type="text"
-                  name="appliedDate"
                   value={appliedDate}
                   className="input input-bordered w-full"
                   readOnly
@@ -180,7 +160,6 @@ const VisaDetails = () => {
                 </label>
                 <input
                   type="text"
-                  name="fee"
                   value={fee}
                   className="input input-bordered w-full"
                   readOnly
@@ -190,20 +169,25 @@ const VisaDetails = () => {
               <div className="flex justify-end gap-3">
                 <button
                   type="button"
-                  onClick={handleCloseModal} // Reset form and close modal
+                  onClick={handleCloseModal}
                   className="btn btn-secondary"
                 >
                   Cancel
                 </button>
-                <Link to="/my-visa-applications" type="submit" className="btn border-none btn-success bg-yellow-400">
-                  Apply
-                </Link>
+                <button
+                  type="submit"
+                  className={`btn border-none btn-success bg-yellow-400 ${loading ? "loading" : ""}`}
+                  disabled={loading}
+                >
+                  {loading ? "Submitting..." : "Apply"}
+                </button>
               </div>
             </form>
           </div>
         </div>
       )}
 
+      <Footer />
     </div>
   );
 };

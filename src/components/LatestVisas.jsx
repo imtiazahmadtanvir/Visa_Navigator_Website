@@ -7,7 +7,7 @@ const LatestVisas = () => {
   const [loading, setLoading] = useState(true); // State to manage loading status
 
   useEffect(() => {
-    // Fetch visa data from the backend
+
     fetch("https://visa-navigator-server-omega.vercel.app/add-visa")
       .then((res) => res.json())
       .then((data) => {
@@ -61,7 +61,7 @@ const LatestVisas = () => {
                   Application Method: {visa.applicationMethod}
                 </p>
                 <Link
-                  to={`/visa-details/${visa._id}`}
+                  to={`/add-visa/${visa._id}`}
                   className="btn btn-primary mt-4 w-full"
                 >
                   See Details
