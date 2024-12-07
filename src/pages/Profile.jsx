@@ -36,7 +36,7 @@ const Profile = () => {
             <div className="w-40 -mt-20 rounded-full">
               {/* Use defaultPic as fallback */}
               <img 
-                src={user?.photo || defaultPic} 
+                src={user?.photoURL || defaultPic} 
                 alt={user?.name || "User"} 
                 className="w-40 h-40 rounded-full"
               />

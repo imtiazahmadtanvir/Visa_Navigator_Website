@@ -21,7 +21,7 @@ const MyAddedVisas = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/add-visa/${_id}`, {
+        fetch(`https://visa-navigator-server-6rerc8wv7-imtiazs-projects-e3424ac1.vercel.app/add-visa/${_id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -60,7 +60,7 @@ const MyAddedVisas = () => {
       countryImage: e.target.countryImage.value,
     };
 
-    fetch(`http://localhost:5000/add-visa/${selectedVisa._id}`, {
+    fetch(`https://visa-navigator-server-6rerc8wv7-imtiazs-projects-e3424ac1.vercel.app/add-visa/${selectedVisa._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedVisa),

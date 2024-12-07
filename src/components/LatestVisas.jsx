@@ -8,7 +8,7 @@ const LatestVisas = () => {
 
   useEffect(() => {
     // Fetch visa data from the backend
-    fetch("http://localhost:5000/add-visa")
+    fetch("https://visa-navigator-server-omega.vercel.app/add-visa")
       .then((res) => res.json())
       .then((data) => {
         setVisas(data);

@@ -46,7 +46,7 @@ const VisaDetails = () => {
     };
 
     // Send the data to the server
-    fetch("http://localhost:5000/apply-visa", {
+    fetch("https://visa-navigator-server-6rerc8wv7-imtiazs-projects-e3424ac1.vercel.app/apply-visa", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -69,7 +69,7 @@ const VisaDetails = () => {
         }
       })
       .catch((error) => {
-        console.error("Error:", error);
+        error("Error:", error);
         Swal.fire({
           icon: "error",
           title: "Oops...",

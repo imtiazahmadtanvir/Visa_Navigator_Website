@@ -97,10 +97,7 @@ const Banner = () => {
       />
     </div>
     
-          <p className="text-xl mb-6">
-            Discover a seamless way to manage and apply for visas. Your journey
-            starts here!
-          </p>
+
           <Fade>
           <p className="text-xl mb-6">
             Discover a seamless way to manage and apply for visas. Your journey
