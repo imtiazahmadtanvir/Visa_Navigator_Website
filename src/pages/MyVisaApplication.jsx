@@ -5,11 +5,10 @@ import Swal from "sweetalert2";
 import { useState } from "react";
 
 const MyVisaApplication = () => {
-  const Loaderdata = useLoaderData(); // Initial data from loader
-  const [visas, setVisas] = useState(Loaderdata); // Manage visas state locally
-  const [searchQuery, setSearchQuery] = useState(""); // Search query state
+  const Loaderdata = useLoaderData(); 
+  const [visas, setVisas] = useState(Loaderdata); 
+  const [searchQuery, setSearchQuery] = useState(""); 
 
-  // Handle visa cancellation
   const handleCancel = (_id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -21,27 +20,19 @@ const MyVisaApplication = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`https://visa-navigator-server-omega.vercel.app/apply-visa${_id}`, {
+        fetch(`https://visa-navigator-server-omega.vercel.app/apply-visa/${_id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
           .then((data) => {
             if (data.deletedCount > 0) {
-              Swal.fire({
-                title: "Deleted!",
-                text: "Your visa application has been deleted.",
-                icon: "success",
-              });
-              setVisas(visas.filter((visa) => visa._id !== _id));
+              Swal.fire("Deleted!", "Your visa application has been deleted.", "success");
+              setVisas(visas.filter((visa) => visa._id !== _id)); // Update the UI
             }
           })
           .catch((error) => {
             console.error("Error deleting visa:", error);
-            Swal.fire({
-              title: "Error!",
-              text: "Something went wrong. Please try again.",
-              icon: "error",
-            });
+            Swal.fire("Error!", "Something went wrong. Please try again.", "error");
           });
       }
     });
@@ -57,10 +48,12 @@ const MyVisaApplication = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      {/* Header Section */}
       <header>
         <Navbar />
       </header>
 
+      {/* Main Content */}
       <main className="flex-grow container mx-auto p-5">
         <h1 className="text-2xl font-bold mb-4">My Visa Applications</h1>
 
@@ -70,24 +63,19 @@ const MyVisaApplication = () => {
             type="text"
             placeholder="Search by country name"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => setSearchQuery(e.target.value)} // Update search query
             className="input input-bordered w-full max-w-md"
           />
-          <button
-            onClick={handleSearch}
-            className="btn btn-primary"
-          >
+          <button onClick={handleSearch} className="btn btn-primary">
             Search
           </button>
         </div>
 
+        {/* Visa Applications */}
         {visas.length > 0 ? (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {visas.map((visa) => (
-              <div
-                key={visa._id}
-                className="card bg-base-100 shadow-lg p-4 border rounded"
-              >
+              <div key={visa._id} className="card  bg-base-100 shadow-lg p-4 border rounded">
                 <img
                   src={visa.countryImage}
                   alt={visa.country}
@@ -100,9 +88,7 @@ const MyVisaApplication = () => {
                 <p><strong>Validity:</strong> {visa.validity}</p>
                 <p><strong>Application Method:</strong> {visa.applicationMethod}</p>
                 <p><strong>Applied Date:</strong> {visa.appliedDate}</p>
-                <p>
-                  <strong>Applicant:</strong> {visa.firstName} {visa.lastName}
-                </p>
+                <p><strong>Applicant:</strong> {visa.firstName} {visa.lastName}</p>
                 <p><strong>Email:</strong> {visa.email}</p>
                 <button
                   onClick={() => handleCancel(visa._id)}
@@ -118,6 +104,7 @@ const MyVisaApplication = () => {
         )}
       </main>
 
+      {/* Footer Section */}
       <footer className="mt-auto">
         <Footer />
       </footer>

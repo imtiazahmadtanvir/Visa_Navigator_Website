@@ -46,7 +46,6 @@ const router = createBrowserRouter([
     element:<PrivateRoute> <MyVisaApplication></MyVisaApplication></PrivateRoute>,
     loader:()=>fetch("https://visa-navigator-server-omega.vercel.app/apply-visa"),
     errorElement: <Errorpage></Errorpage>,
-
   },
   {
     path:"/add-visa/:id",
