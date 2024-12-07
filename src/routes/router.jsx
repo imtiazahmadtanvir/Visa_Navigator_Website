@@ -44,13 +44,14 @@ const router = createBrowserRouter([
   {
     path: "/my-visa-applications",
     element:<PrivateRoute> <MyVisaApplication></MyVisaApplication></PrivateRoute>,
+    loader:()=>fetch('http://localhost:5000/apply-visa'),
     errorElement: <Errorpage></Errorpage>,
 
   },
   {
-    path:"/visa-details",
+    path:"/add-visa/:id",
     element:<PrivateRoute><VisaDetails></VisaDetails></PrivateRoute>,
-    loader:()=>fetch(`http://localhost:5000/add-visa`),
+    loader:({params})=>fetch(`http://localhost:5000/add-visa/${params.id}`),
     errorElement: <Errorpage></Errorpage>,
 
   },

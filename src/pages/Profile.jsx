@@ -1,193 +1,63 @@
-import { useState } from "react";
-import Footer from "../components/Footer";
+import { useContext } from "react";
+import { AuthContext } from "../provider/AuthProvider"; 
+import { Link } from "react-router-dom"; 
+import Footer from "../components/Footer"; 
+import defaultPic from "../assets/defulteimage.png"; // Default image for user avatar
 import Navbar from "../components/Navbar";
 
-const VisaDetails = ({ visaData }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const Profile = () => {
+  const { user } = useContext(AuthContext); 
 
-  // Simulated logged-in user data (replace with context or props)
-  const loggedInUser = {
-    email: "user@example.com", // Logged-in user's email
-  };
-
-  const handleApply = (event) => {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    const applicationData = Object.fromEntries(formData.entries());
-    console.log("Application Data Submitted:", applicationData);
-    setIsModalOpen(false);
-
-    // TODO: Add logic to send data to the backend (e.g., via API).
-  };
+  // Ensure user data is available before rendering the profile
+  if (!user) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <p className="text-xl font-semibold text-gray-700">Loading...</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-base-100 dark:bg-gray-900">
-      <nav>
-        <Navbar />
-      </nav>
-      <div className="container mx-auto p-4">
-        <h1 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200">
-          Visa Details
-        </h1>
+    <div className="flex flex-col min-h-screen">
+      {/* Navbar */}
+      <Navbar />
 
-        {/* Display Visa Details */}
-        <div className="bg-base-100 dark:bg-gray-800 p-6 rounded-lg shadow-md mb-4">
-          <p className="text-gray-800 dark:text-gray-100">
-            <strong>Country:</strong> {visaData?.countryName || "N/A"}
-          </p>
-          <p className="text-gray-800 dark:text-gray-100">
-            <strong>Visa Type:</strong> {visaData?.visaType || "N/A"}
-          </p>
-          <p className="text-gray-800 dark:text-gray-100">
-            <strong>Processing Time:</strong> {visaData?.processingTime || "N/A"}
-          </p>
-          <p className="text-gray-800 dark:text-gray-100">
-            <strong>Fee:</strong> ${visaData?.fee || "N/A"}
-          </p>
-          <p className="text-gray-800 dark:text-gray-100">
-            <strong>Age Restriction:</strong> {visaData?.ageRestriction || "N/A"}
-          </p>
-          <p className="text-gray-800 dark:text-gray-100">
-            <strong>Validity:</strong> {visaData?.validity || "N/A"}
-          </p>
-          <p className="text-gray-800 dark:text-gray-100">
-            <strong>Description:</strong> {visaData?.description || "N/A"}
-          </p>
-          <p className="text-gray-800 dark:text-gray-100">
-            <strong>Application Method:</strong> {visaData?.applicationMethod || "N/A"}
-          </p>
+      {/* Main Content */}
+      <div className="flex-grow pb-16">
+        {/* Heading Section */}
+        <div className="bg-[#1e0e5c] pb-48">
+          <h2 className="text-3xl font-bold text-white pt-8 text-center">
+            Welcome {user ? user.displayName : "Loading"}
+          </h2>
         </div>
-
-        {/* Apply for Visa Button */}
-        <button
-          onClick={() => setIsModalOpen(true)}
-          className="mt-4 px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-        >
-          Apply for the Visa
-        </button>
-
-        {/* Application Modal */}
-        {isModalOpen && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-            <div className="bg-white dark:bg-gray-900 p-6 rounded-lg w-full sm:max-w-md shadow-lg">
-              <h2 className="text-xl font-bold mb-4 text-gray-800 dark:text-gray-200">
-                Apply for the Visa
-              </h2>
-              <form onSubmit={handleApply}>
-                {/* Email */}
-                <div className="mb-4">
-                  <label
-                    className="block font-medium mb-1 text-gray-800 dark:text-gray-200"
-                    htmlFor="email"
-                  >
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    defaultValue={loggedInUser.email}
-                    readOnly
-                    className="w-full px-3 py-2 border rounded bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200"
-                  />
-                </div>
-
-                {/* First Name */}
-                <div className="mb-4">
-                  <label
-                    className="block font-medium mb-1 text-gray-800 dark:text-gray-200"
-                    htmlFor="firstName"
-                  >
-                    First Name
-                  </label>
-                  <input
-                    type="text"
-                    id="firstName"
-                    name="firstName"
-                    required
-                    className="w-full px-3 py-2 border rounded bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200"
-                  />
-                </div>
-
-                {/* Last Name */}
-                <div className="mb-4">
-                  <label
-                    className="block font-medium mb-1 text-gray-800 dark:text-gray-200"
-                    htmlFor="lastName"
-                  >
-                    Last Name
-                  </label>
-                  <input
-                    type="text"
-                    id="lastName"
-                    name="lastName"
-                    required
-                    className="w-full px-3 py-2 border rounded bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200"
-                  />
-                </div>
-
-                {/* Applied Date */}
-                <div className="mb-4">
-                  <label
-                    className="block font-medium mb-1 text-gray-800 dark:text-gray-200"
-                    htmlFor="appliedDate"
-                  >
-                    Applied Date
-                  </label>
-                  <input
-                    type="date"
-                    id="appliedDate"
-                    name="appliedDate"
-                    defaultValue={new Date().toISOString().split("T")[0]}
-                    readOnly
-                    className="w-full px-3 py-2 border rounded bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200"
-                  />
-                </div>
-
-                {/* Fee */}
-                <div className="mb-4">
-                  <label
-                    className="block font-medium mb-1 text-gray-800 dark:text-gray-200"
-                    htmlFor="fee"
-                  >
-                    Fee
-                  </label>
-                  <input
-                    type="number"
-                    id="fee"
-                    name="fee"
-                    defaultValue={visaData?.fee || 0}
-                    readOnly
-                    className="w-full px-3 py-2 border rounded bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200"
-                  />
-                </div>
-
-                {/* Buttons */}
-                <div className="flex justify-end gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setIsModalOpen(false)}
-                    className="px-4 py-2 bg-gray-300 dark:bg-gray-700 rounded-lg hover:bg-gray-400 dark:hover:bg-gray-600"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-                  >
-                    Apply
-                  </button>
-                </div>
-              </form>
+        {/* Details Section */}
+        <div className="w-11/12 mx-auto flex flex-col justify-center items-center bg-white rounded-3xl shadow-lg -mt-32 p-8">
+          <div className="avatar">
+            <div className="w-40 -mt-20 rounded-full">
+              {/* Use defaultPic as fallback */}
+              <img 
+                src={user?.photo || defaultPic} 
+                alt={user?.name || "User"} 
+                className="w-40 h-40 rounded-full"
+              />
             </div>
           </div>
-        )}
+          <h3 className="text-2xl font-bold pt-4 text-center">
+            {user ? user.name : "Anonymous name"}
+          </h3>
+          <p className="text-sm text-gray-600 pb-4">
+            {user ? user.email : "Anonymous email"}
+          </p>
+          <Link to="/">
+            <button className="btn bg-[#1e0e5c] text-white">Back to Home</button>
+          </Link>
+        </div>
       </div>
-      <footer>
-        <Footer />
-      </footer>
+
+      {/* Footer Fixed at Bottom */}
+      <Footer className="bottom-0 left-0 w-full z-50 bg-base-200" />
     </div>
   );
 };
 
-export default VisaDetails;
+export default Profile;

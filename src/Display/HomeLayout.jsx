@@ -5,6 +5,8 @@ import Navbar from "../components/Navbar";
 import LatestVisas from "../components/LatestVisas";
 import TopDestinations from "../components/TopDestinations";
 import Testimonials from "../components/Testimonials";
+// import { Fade } from "react-awesome-reveal";
+
 
 const HomeLayout = () => {
   const [isDarkMode, setIsDarkMode] = useState(

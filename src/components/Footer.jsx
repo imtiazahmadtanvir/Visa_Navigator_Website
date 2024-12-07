@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <div className="bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300 shadaw-lg">
-      <footer className="footer footer-center bg-base-200 dark:bg-gray-800 text-base-content dark:text-gray-200 p-10">
+    <div className="relatable bg-gray-100  text-gray-700  shadaw-lg ">
+      <footer className="footer footer-center bg-base-200  text-base-content  p-10">
         {/* Navigation Links */}
         <nav className="grid grid-flow-col gap-4">
           <Link to="/about" className="link link-hover hover:text-gray-500 dark:hover:text-gray-400">

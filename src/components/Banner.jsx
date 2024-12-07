@@ -5,6 +5,8 @@ import bg3 from "../assets/bg-3.avif";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/swiper-bundle.css";
+import { Typewriter } from 'react-simple-typewriter'
+import { Fade } from "react-awesome-reveal";
 
 const Banner = () => {
   return (
@@ -76,13 +78,35 @@ const Banner = () => {
 
         {/* Welcome Message */}
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-4xl sm:text-3xl font-extrabold mb-4">
-            Welcome to <span className="text-yellow-500 dark:text-yellow-400">Visa Navigator!</span>
-          </h2>
+        <div>
+      <h2 className="text-4xl sm:text-3xl font-extrabold mb-4">
+        Welcome to{" "}
+        <span className="text-yellow-500 dark:text-yellow-400">
+          Visa Navigator!
+        </span>
+      </h2>
+
+      <Typewriter
+        words={['Start your journey', 'Explore top destinations']}
+        loop={0} // Set this to true to loop indefinitely
+        cursor
+        cursorStyle=""
+        typeSpeed={100}
+        deleteSpeed={50}
+        delaySpeed={1000}
+      />
+    </div>
+    
           <p className="text-xl mb-6">
             Discover a seamless way to manage and apply for visas. Your journey
             starts here!
           </p>
+          <Fade>
+          <p className="text-xl mb-6">
+            Discover a seamless way to manage and apply for visas. Your journey
+            starts here!
+          </p>
+          </Fade>
 
           {/* Start Exploring Button */}
           <Link

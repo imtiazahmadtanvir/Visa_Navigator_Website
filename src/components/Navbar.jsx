@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import logo from "../assets/logo.png"; // Replace with your actual logo path
 import { AuthContext } from "../provider/AuthProvider";
+import defaultPic from "../assets/defulteimage.png"; // Default image for user avatar
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -45,7 +46,7 @@ const Navbar = () => {
               className="btn btn-ghost hover:bg-gray-300 dark:hover:bg-gray-700"
             >
               <img
-                src={user?.photo || "https://via.placeholder.com/40"}
+                src={user?.photoURL || defaultPic}
                 alt={user?.name || "User"}
                 className="w-8 h-8 rounded-full border-2 border-gray-300"
               />
@@ -76,7 +77,7 @@ const Navbar = () => {
       </div>
 
       {/* Hamburger Menu for Medium/Small Devices */}
-      <div className="lg:hidden flex items-center">
+      <div className="lg:hidden flex items-top p">
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           className="btn btn-ghost"
@@ -95,74 +96,75 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile Menu Dropdown */}
-      {isMenuOpen && (
-        <div className="absolute top-full left-0 w-full bg-base-100 dark:bg-gray-800 shadow-lg z-50">
-          <div className="flex flex-col items-start gap-2 p-4">
-            <Link
-              to="/"
-              className="btn btn-ghost w-full text-left hover:bg-gray-300 dark:hover:bg-gray-700"
-            >
-              Home
-            </Link>
-            <Link
-              to="/all-visas"
-              className="btn btn-ghost w-full text-left hover:bg-gray-300 dark:hover:bg-gray-700"
-            >
-              All Visas
-            </Link>
-            <Link
-              to="/add-visa"
-              className="btn btn-ghost w-full text-left hover:bg-gray-300 dark:hover:bg-gray-700"
-            >
-              Add Visa
-            </Link>
-            <Link
-              to="/my-added-visas"
-              className="btn btn-ghost w-full text-left hover:bg-gray-300 dark:hover:bg-gray-700"
-            >
-              My Added Visas
-            </Link>
-            <Link
-              to="/my-visa-applications"
-              className="btn btn-ghost w-full text-left hover:bg-gray-300 dark:hover:bg-gray-700"
-            >
-              My Visa Applications
-            </Link>
-            {user ? (
-              <>
-                <Link
-                  to="/profile"
-                  className="btn btn-ghost w-full text-left hover:bg-gray-300 dark:hover:bg-gray-700"
-                >
-                  Profile
-                </Link>
-                <button
-                  onClick={logOut}
-                  className="btn btn-primary w-full text-center bg-yellow-400 dark:bg-yellow-500 hover:bg-yellow-500"
-                >
-                  Logout
-                </button>
-              </>
-            ) : (
-              <>
-                <Link
-                  to="/auth/login"
-                  className="btn btn-primary w-full text-center bg-yellow-400 hover:bg-yellow-500"
-                >
-                  Login
-                </Link>
-                <Link
-                  to="/auth/register"
-                  className="btn btn-primary w-full text-center bg-yellow-400 hover:bg-yellow-500"
-                >
-                  Register
-                </Link>
-              </>
-            )}
-          </div>
-        </div>
+ {/* Mobile Menu Dropdown */}
+{isMenuOpen && (
+  <div className="absolute top-[4rem]  right-0  bg-base-100 dark:bg-gray-800 shadow-lg z-50">
+    <div className="flex flex-col items-start gap-2 p-4">
+      <Link
+        to="/"
+        className="btn btn-ghost w-full text-left hover:bg-gray-300 dark:hover:bg-gray-700"
+      >
+        Home
+      </Link>
+      <Link
+        to="/all-visas"
+        className="btn btn-ghost w-full text-left hover:bg-gray-300 dark:hover:bg-gray-700"
+      >
+        All Visas
+      </Link>
+      <Link
+        to="/add-visa"
+        className="btn btn-ghost w-full text-left hover:bg-gray-300 dark:hover:bg-gray-700"
+      >
+        Add Visa
+      </Link>
+      <Link
+        to="/my-added-visas"
+        className="btn btn-ghost w-full text-left hover:bg-gray-300 dark:hover:bg-gray-700"
+      >
+        My Added Visas
+      </Link>
+      <Link
+        to="/my-visa-applications"
+        className="btn btn-ghost w-full text-left hover:bg-gray-300 dark:hover:bg-gray-700"
+      >
+        My Visa Applications
+      </Link>
+      {user ? (
+        <>
+          <Link
+            to="/profile"
+            className="btn btn-ghost w-full text-left hover:bg-gray-300 dark:hover:bg-gray-700"
+          >
+            Profile
+          </Link>
+          <button
+            onClick={logOut}
+            className="btn btn-primary w-full text-center bg-yellow-400 dark:bg-yellow-500 hover:bg-yellow-500"
+          >
+            Logout
+          </button>
+        </>
+      ) : (
+        <>
+          <Link
+            to="/auth/login"
+            className="btn btn-primary w-full text-center bg-yellow-400 hover:bg-yellow-500"
+          >
+            Login
+          </Link>
+          <Link
+            to="/auth/register"
+            className="btn btn-primary w-full text-center bg-yellow-400 hover:bg-yellow-500"
+          >
+            Register
+          </Link>
+        </>
       )}
+    </div>
+  </div>
+)}
+
     </div>
   );
 };

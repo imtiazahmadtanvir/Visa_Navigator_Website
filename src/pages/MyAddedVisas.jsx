@@ -57,6 +57,7 @@ const MyAddedVisas = () => {
       fee: e.target.fee.value,
       validity: e.target.validity.value,
       applicationMethod: e.target.applicationMethod.value,
+      countryImage: e.target.countryImage.value,
     };
 
     fetch(`http://localhost:5000/add-visa/${selectedVisa._id}`, {
@@ -114,7 +115,7 @@ const MyAddedVisas = () => {
                 className="card bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden transform hover:scale-105 transition-transform duration-300"
               >
                 <img
-                  src={visa.image}
+                  src={visa.countryImage}
                   alt={visa.country}
                   className="w-full h-48 object-cover"
                 />
@@ -159,6 +160,15 @@ const MyAddedVisas = () => {
           <div className="bg-white dark:bg-gray-800 p-6 rounded shadow-lg w-96">
             <h3 className="text-xl font-bold mb-4">Update Visa</h3>
             <form onSubmit={handleUpdate}>
+              <input
+                type="text"
+                name="countryImage"
+                defaultValue={selectedVisa.countryImage}
+                className="input input-bordered w-full mb-4"
+                placeholder="Photo URL"
+                required
+              />
+
               <input
                 type="text"
                 name="countryName"
@@ -224,7 +234,7 @@ const MyAddedVisas = () => {
         </div>
       )}
 
-      <footer className="text-white py-4 mt-auto">
+      <footer className="bottom-0 left-0 w-full z-50">
         <Footer />
       </footer>
     </div>
