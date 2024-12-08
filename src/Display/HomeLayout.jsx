@@ -72,10 +72,18 @@ const HomeLayout = () => {
       </div>
 
       <Banner />
-      
+      <div className="w-11/12 mx-auto">
       <LatestVisas visas={latestVisas} />
+
+      </div>
+      <div className="w-11/12 mx-auto">
       <TopDestinations></TopDestinations>
+
+      </div>
+      <div className="w-11/12 mx-auto mb-4 ">
       <Testimonials></Testimonials>
+
+      </div>
 
       <Footer />
     </div>
