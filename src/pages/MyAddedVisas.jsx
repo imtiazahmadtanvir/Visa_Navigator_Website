@@ -137,7 +137,7 @@ const MyAddedVisas = () => {
                   <div className="flex gap-3 mt-6">
                     <button
                       onClick={() => openModal(visa)}
-                      className="btn btn-primary flex-grow"
+                      className="btn btn-primary bg-yellow-500 flex-grow hover:bg-yellow-500 text-gray-800 dark:text-gray-200 border-none"
                     >
                       Update
                     </button>
@@ -217,15 +217,15 @@ const MyAddedVisas = () => {
                 placeholder="Application Method"
                 required
               />
-              <div className="flex justify-end gap-3">
+              <div className="flex justify-end gap-3 flex-grow w-full mx-auto">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="btn btn-secondary"
+                  className="btn btn-secondary bg-red-600"
                 >
                   Cancel
                 </button>
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" className="btn btn-primary text-gray-800 dark:text-gray-200 bg-yellow-500 hover:bg-yellow-500">
                   Save
                 </button>
               </div>

@@ -73,7 +73,9 @@ const AllVisas = () => {
                   <strong>Fee:</strong> ${visa.fee}
                 </p>
                 <div className="card-actions justify-end">
-                  <Link to={`/add-visa/${visa._id}`} className="btn btn-primary">
+                  <Link to={`/add-visa/${visa._id}`} 
+                className="btn mt-5 btn-primary bg-yellow-500 text-gray-800 border-none font-semibold px-6 py-3 rounded-lg hover:bg-yellow-500 hover:shadow-md transition dark:bg-yellow-500  dark:hover:bg-yellow-600 w-full mx-auto"
+                >
                     See Details
                   </Link>
                 </div>

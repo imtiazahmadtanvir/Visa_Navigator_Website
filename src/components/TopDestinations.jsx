@@ -49,8 +49,8 @@ const TopDestinations = () => {
               </p>
               <Link
                 to={`/all-visas?country=${destination.country}`}
-                className="btn btn-primary mt-4"
-              >
+                className="btn mt-5 btn-primary bg-yellow-500 text-gray-800 border-none font-semibold px-6 py-3 rounded-lg hover:bg-yellow-500 hover:shadow-md transition dark:bg-yellow-500  dark:hover:bg-yellow-600 w-1/2 mx-auto"
+                >
                 Explore Visas
               </Link>
             </div>

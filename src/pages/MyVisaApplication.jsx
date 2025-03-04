@@ -54,11 +54,11 @@ const MyVisaApplication = () => {
       </header>
 
       {/* Main Content */}
-      <main className="flex-grow container mx-auto p-5">
-        <h1 className="text-2xl font-bold mb-4">My Visa Applications</h1>
+      <main className="container mx-auto p-5">
+        <h1 className="text-2xl font-bold mb-4 w-full mx-auto">My Visa Applications</h1>
 
         {/* Search Section */}
-        <div className="flex gap-4 mb-6">
+        <div className="flex gap-4 mb-6 mx-auto w-full">
           <input
             type="text"
             placeholder="Search by country name"
@@ -66,7 +66,7 @@ const MyVisaApplication = () => {
             onChange={(e) => setSearchQuery(e.target.value)} // Update search query
             className="input input-bordered w-full max-w-md"
           />
-          <button onClick={handleSearch} className="btn btn-primary">
+          <button onClick={handleSearch} className="btn btn-primary text-gray-800 dark:text-gray-200 bg-yellow-500 border-none hover:bg-yellow-600">
             Search
           </button>
         </div>

@@ -62,8 +62,8 @@ const LatestVisas = () => {
                 </p>
                 <Link
                   to={`/add-visa/${visa._id}`}
-                  className="btn btn-primary mt-4 w-full"
-                >
+                  className="btn btn-primary bg-yellow-400 text-gray-800 border-none font-semibold px-10 py-3 rounded-lg hover:bg-yellow-500 hover:shadow-md transition dark:bg-yellow-500 dark:hover:bg-yellow-600 w-full mx-auto"
+                  >
                   See Details
                 </Link>
               </div>
@@ -74,7 +74,9 @@ const LatestVisas = () => {
         )}
       </div>
       <div className="text-center mt-8">
-        <Link to="/all-visas" className="btn btn-secondary dark:btn-outline">
+        <Link to="/all-visas" 
+            className="btn btn-primary bg-yellow-400 text-gray-800 border-none font-semibold px-10 py-3 rounded-lg hover:bg-yellow-500 hover:shadow-md transition dark:bg-yellow-500 dark:hover:bg-yellow-600"
+            >
           See All Visas
         </Link>
       </div>

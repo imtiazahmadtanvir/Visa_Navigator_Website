@@ -85,7 +85,7 @@ const AddVisa = () => {
       <main className="flex-grow flex items-center justify-center p-4">
         <div className="card w-full max-w-lg bg-base-100 shadow-lg">
           <div className="card-body">
-            <h2 className="text-center text-2xl font-bold">Add Visa</h2>
+            <h2 className="text-center text-2xl font-bold">Apply Visa</h2>
 
             <form onSubmit={handleAddVisa}>
               {/* Country Image */}
@@ -238,8 +238,10 @@ const AddVisa = () => {
 
               {/* Add Visa Button */}
               <div className="form-control mt-6">
-                <button type="submit" className="btn btn-primary">
-                  Add Visa
+                <button type="submit" 
+            className="btn btn-primary bg-yellow-400 text-gray-800 border-none font-semibold px-10 py-3 rounded-lg hover:bg-yellow-500 hover:shadow-md transition dark:bg-yellow-500 dark:hover:bg-yellow-600"
+            >
+                  Apply Visa
                 </button>
               </div>
             </form>
