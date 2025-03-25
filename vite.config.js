@@ -5,6 +5,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "@contexts": "/src/contexts",
+      "@components": "/src/components", // Add this line
     },
   },
   plugins: [react()],

@@ -43,7 +43,7 @@ const LatestVisas = () => {
               className="card shadow-md rounded-lg overflow-hidden bg-white"
             >
               <img
-                src={visa.countryImage || default_Img} // Use fallback image if countryImage is not provided
+                src={visa.countryImag || default_Img} // Use fallback image if countryImage is not provided
                 alt={visa.countryName}
                 className="w-full h-40 object-cover"
               />

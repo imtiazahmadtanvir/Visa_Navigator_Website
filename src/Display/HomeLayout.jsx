@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import LatestVisas from "../components/LatestVisas";
 import TopDestinations from "../components/TopDestinations";
 import Testimonials from "../components/Testimonials";
+import FloatingChatbot from "../components/FloatingChatbot";
 // import { Fade } from "react-awesome-reveal";
 
 
@@ -86,6 +87,7 @@ const HomeLayout = () => {
       </div>
 
       <Footer />
+      <FloatingChatbot></FloatingChatbot>
     </div>
   );
 };
