@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
-import logo from "../assets/logo.png"; // Replace with your actual logo path
+import logo from "../assets/logo.png"; 
 import { AuthContext } from "../provider/AuthProvider";
-import defaultPic from "../assets/defulteimage.png"; // Default image for user avatar
+import defaultPic from "../assets/defulteimage.png"; 
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
