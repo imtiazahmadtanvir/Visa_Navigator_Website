@@ -3,12 +3,13 @@
 
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
-import { motion } from "framer-motion";
+import { motion } from "framer-motion"
 import { Home, RefreshCw, Search } from "lucide-react"
 
 const ErrorPage = () => {
   const [isExploding, setIsExploding] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
+  const [isDarkMode, setIsDarkMode] = useState(false)
 
   // Create particles for explosion effect
   const particles = Array.from({ length: 20 }).map((_, i) => ({
@@ -20,6 +21,10 @@ const ErrorPage = () => {
   }))
 
   useEffect(() => {
+    // Check if dark mode is enabled
+    const savedDarkMode = localStorage.getItem("darkMode") === "true"
+    setIsDarkMode(savedDarkMode)
+
     // Auto-trigger explosion animation after component mounts
     const timer = setTimeout(() => {
       setIsExploding(true)
@@ -84,9 +89,15 @@ const ErrorPage = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-gray-50 to-gray-100 px-4">
+    <div
+      className={`min-h-screen flex flex-col items-center justify-center ${
+        isDarkMode ? "bg-gradient-to-b from-gray-900 to-gray-800" : "bg-gradient-to-b from-gray-50 to-gray-100"
+      } px-4`}
+    >
       <motion.div
-        className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 relative overflow-hidden"
+        className={`max-w-md w-full ${
+          isDarkMode ? "bg-gray-800" : "bg-white"
+        } rounded-2xl shadow-xl p-8 relative overflow-hidden`}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
@@ -94,13 +105,17 @@ const ErrorPage = () => {
         {/* Decorative background elements */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
           <motion.div
-            className="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-full -mr-16 -mt-16"
+            className={`absolute top-0 right-0 w-32 h-32 ${
+              isDarkMode ? "bg-blue-900/20" : "bg-blue-50"
+            } rounded-full -mr-16 -mt-16`}
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ duration: 0.7, delay: 0.2 }}
           />
           <motion.div
-            className="absolute bottom-0 left-0 w-24 h-24 bg-red-50 rounded-full -ml-12 -mb-12"
+            className={`absolute bottom-0 left-0 w-24 h-24 ${
+              isDarkMode ? "bg-red-900/20" : "bg-red-50"
+            } rounded-full -ml-12 -mb-12`}
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ duration: 0.7, delay: 0.3 }}
@@ -135,7 +150,7 @@ const ErrorPage = () => {
                       originX: "center",
                       originY: "center",
                     }}
-                   
+      
                   />
                 ))}
               </div>
@@ -143,11 +158,14 @@ const ErrorPage = () => {
           </div>
 
           <motion.div variants={containerVariants} initial="hidden" animate="visible" className="text-center">
-            <motion.h1 variants={itemVariants} className="text-2xl font-bold text-gray-800 mb-2">
+            <motion.h1
+              variants={itemVariants}
+              className={`text-2xl font-bold ${isDarkMode ? "text-white" : "text-gray-800"} mb-2`}
+            >
               Page Not Found
             </motion.h1>
 
-            <motion.p variants={itemVariants} className="text-gray-600 mb-8">
+            <motion.p variants={itemVariants} className={`${isDarkMode ? "text-gray-300" : "text-gray-600"} mb-8`}>
               The page you are looking for has vanished into the digital void.
             </motion.p>
 
@@ -157,11 +175,18 @@ const ErrorPage = () => {
                 <input
                   type="text"
                   placeholder="Search for something else..."
-                  className="w-full px-4 py-3 pr-10 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 outline-none"
+                  className={`w-full px-4 py-3 pr-10 border ${
+                    isDarkMode
+                      ? "border-gray-700 bg-gray-700 text-white placeholder-gray-400"
+                      : "border-gray-200 bg-white text-gray-800"
+                  } rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 outline-none`}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
-                <Search className="absolute right-3 top-3 text-gray-400" size={20} />
+                <Search
+                  className={`absolute right-3 top-3 ${isDarkMode ? "text-gray-400" : "text-gray-400"}`}
+                  size={20}
+                />
               </div>
             </motion.div>
 
@@ -179,7 +204,9 @@ const ErrorPage = () => {
               </Link>
 
               <motion.button
-                className="flex items-center justify-center gap-2 bg-white border border-gray-200 text-gray-700 font-medium px-6 py-3 rounded-lg hover:bg-gray-50 transition-colors w-full"
+                className={`flex items-center justify-center gap-2 ${
+                  isDarkMode ? "bg-gray-700 border-gray-600 text-gray-200" : "bg-white border-gray-200 text-gray-700"
+                } border font-medium px-6 py-3 rounded-lg hover:bg-opacity-80 transition-colors w-full`}
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={handleTryAgain}
@@ -197,7 +224,12 @@ const ErrorPage = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
           >
-            <svg width="200" height="120" viewBox="0 0 200 120" className="text-gray-400">
+            <svg
+              width="200"
+              height="120"
+              viewBox="0 0 200 120"
+              className={`${isDarkMode ? "text-gray-600" : "text-gray-400"}`}
+            >
               <motion.path
                 d="M20,100 L50,60 L80,100 L110,60 L140,100 L170,60"
                 fill="none"
@@ -237,7 +269,7 @@ const ErrorPage = () => {
               <motion.path
                 d="M70,40 Q100,20 130,40"
                 fill="none"
-                stroke="#6B7280"
+                stroke={isDarkMode ? "#9CA3AF" : "#6B7280"}
                 strokeWidth="4"
                 strokeLinecap="round"
                 initial={{ pathLength: 0, opacity: 0 }}
@@ -251,7 +283,7 @@ const ErrorPage = () => {
 
       {/* Additional help text */}
       <motion.p
-        className="text-gray-500 text-sm mt-6 max-w-md text-center"
+        className={`${isDarkMode ? "text-gray-400" : "text-gray-500"} text-sm mt-6 max-w-md text-center`}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1 }}

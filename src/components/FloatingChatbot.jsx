@@ -108,7 +108,7 @@ const FloatingChatbot = () => {
         )}
         aria-label="Open chat"
       >
-        {screenSize !== "small" && (
+        {/* {screenSize !== "small" && (
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className={cn(screenSize === "medium" ? "h-4 w-4" : "h-5 w-5")}
@@ -123,7 +123,7 @@ const FloatingChatbot = () => {
             <line x1="8" y1="21" x2="16" y2="21"></line>
             <line x1="12" y1="17" x2="12" y2="21"></line>
           </svg>
-        )}
+        )} */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className={cn(screenSize === "small" ? "h-5 w-5" : screenSize === "medium" ? "h-5.5 w-5.5" : "h-6 w-6")}
