@@ -126,7 +126,7 @@ const FloatingChatbot = () => {
         )} */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className={cn(screenSize === "small" ? "h-5 w-5" : screenSize === "medium" ? "h-5.5 w-5.5" : "h-6 w-6")}
+          className={cn(screenSize === "small" ? "h-5 w-5" : screenSize === "medium" ? "h-5 w-5" : "h-6 w-6")}
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
