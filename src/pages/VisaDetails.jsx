@@ -197,7 +197,7 @@
 
 
 
-"use client"
+// "use client"
 
 /* eslint-disable no-unused-vars */
 import { useLoaderData, useNavigate } from "react-router-dom"

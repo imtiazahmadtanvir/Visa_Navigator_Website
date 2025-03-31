@@ -48,11 +48,14 @@ const router = createBrowserRouter([
     errorElement: <Errorpage></Errorpage>,
   },
   {
-    path:"/add-visa/:id",
-    element:<PrivateRoute><VisaDetails></VisaDetails></PrivateRoute>,
-    loader:({params})=>fetch(`https://visa-navigator-server-omega.vercel.app/add-visa/${params.id}`),
+    path: "/visa-details/:id",
+    element: (
+      <PrivateRoute>
+        <VisaDetails></VisaDetails>
+      </PrivateRoute>
+    ),
+    loader: ({ params }) => fetch(`https://visa-navigator-server-omega.vercel.app/add-visa/${params.id}`),
     errorElement: <Errorpage></Errorpage>,
-
   },
   {
 
