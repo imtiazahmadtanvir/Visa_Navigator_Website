@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // /* eslint-disable react/no-unescaped-entities */
 // const Testimonials = () => {
 //     const testimonials = [
