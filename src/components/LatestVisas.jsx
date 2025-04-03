@@ -212,7 +212,7 @@ const LatestVisas = () => {
               onClick={() => window.location.reload()}
               className="px-6 py-3 bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-semibold rounded-lg transition-colors"
             >
-              Retry please
+              Retry
             </button>
           </div>
         </div>
