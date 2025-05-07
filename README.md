@@ -1,11 +1,4 @@
 # Visa Navigator
-
-## Live Site URL:
-[Your Live Site URL]
-## Github client Side-
- https://github.com/programming-hero-web-course2/b10-a10-client-side-imtiazahmadtanvir
-## Github server Side- 
-https://github.com/programming-hero-web-course2/b10-a10-server-side-imtiazahmadtanvir
 ## Live website link- 
 https://visa-navigator-client-67a8d.web.app/
 
