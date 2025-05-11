@@ -200,6 +200,8 @@
 // "use client"
 
 /* eslint-disable no-unused-vars */
+"use client"
+
 import { useLoaderData, useNavigate } from "react-router-dom"
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
@@ -212,6 +214,7 @@ const VisaDetails = () => {
   const [email, setEmail] = useState("")
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
+  const [passportNumber, setPassportNumber] = useState("")
   const [appliedDate] = useState(new Date().toLocaleDateString())
   const [fee] = useState(Loaderddata.fee)
   const [loading, setLoading] = useState(false)
@@ -377,6 +380,20 @@ const VisaDetails = () => {
                       onChange={(e) => setEmail(e.target.value)}
                       className="input input-bordered w-full"
                       placeholder="Enter your email"
+                      required
+                    />
+                  </div>
+
+                  <div className="form-control mb-4">
+                    <label className="label">
+                      <span className="label-text">Passport Number</span>
+                    </label>
+                    <input
+                      type="text"
+                      value={passportNumber}
+                      onChange={(e) => setPassportNumber(e.target.value)}
+                      className="input input-bordered w-full"
+                      placeholder="Enter your passport number"
                       required
                     />
                   </div>
@@ -558,4 +575,3 @@ const VisaDetails = () => {
 }
 
 export default VisaDetails
-
