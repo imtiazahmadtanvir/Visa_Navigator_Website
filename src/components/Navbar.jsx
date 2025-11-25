@@ -9,7 +9,7 @@
 //   const { user, logOut } = useContext(AuthContext);
 
 //   return (
-//     <div className="flex items-center justify-between bg-base-200 dark:bg-gray-900 shadow-lg px-5 py-3 text-gray-800 dark:text-gray-200">
+//     <div className="flex items-center justify-between px-5 py-3 text-gray-800 shadow-lg bg-base-200 dark:bg-gray-900 dark:text-gray-200">
 //       {/* Logo and Title */}
 //       <div className="flex items-center">
 //         <img src={logo} alt="Visa Navigator Logo" className="w-10 h-10 mr-3" />
@@ -19,7 +19,7 @@
 //       </div>
 
 //       {/* Navigation Links (Large Devices) */}
-//       <div className="hidden lg:flex gap-5">
+//       <div className="hidden gap-5 lg:flex">
 //         <Link to="/" className="btn btn-ghost hover:bg-gray-300 dark:hover:bg-gray-700">
 //           Home
 //         </Link>
@@ -38,7 +38,7 @@
 //       </div>
 
 //       {/* User Profile or Login/Register (Large Devices) */}
-//       <div className="hidden lg:flex items-center gap-3">
+//       <div className="items-center hidden gap-3 lg:flex">
 //         {user ? (
 //           <div className="flex items-center gap-2">
 //             <Link
@@ -48,12 +48,12 @@
 //               <img
 //                 src={user?.photoURL || defaultPic}
 //                 alt={user?.name || "User"}
-//                 className="w-8 h-8 rounded-full border-2 border-gray-300"
+//                 className="w-8 h-8 border-2 border-gray-300 rounded-full"
 //               />
 //             </Link>
 //             <button
 //               onClick={logOut}
-//               className="bg-yellow-400 dark:bg-yellow-500 px-4 py-2 rounded-lg text-gray-800 dark:text-gray-900 hover:bg-yellow-500 dark:hover:bg-yellow-600 transition"
+//               className="px-4 py-2 text-gray-800 transition bg-yellow-400 rounded-lg dark:bg-yellow-500 dark:text-gray-900 hover:bg-yellow-500 dark:hover:bg-yellow-600"
 //             >
 //               Logout
 //             </button>
@@ -62,13 +62,13 @@
 //           <>
 //             <Link
 //               to="/auth/login"
-//               className="bg-yellow-400 dark:bg-yellow-500 px-4 py-2 rounded-lg text-gray-800 dark:text-gray-900 hover:bg-yellow-500 dark:hover:bg-yellow-600 transition"
+//               className="px-4 py-2 text-gray-800 transition bg-yellow-400 rounded-lg dark:bg-yellow-500 dark:text-gray-900 hover:bg-yellow-500 dark:hover:bg-yellow-600"
 //             >
 //               Login
 //             </Link>
 //             <Link
 //               to="/auth/register"
-//               className="bg-yellow-400 dark:bg-yellow-500 px-4 py-2 rounded-lg text-gray-800 dark:text-gray-900 hover:bg-yellow-500 dark:hover:bg-yellow-600 transition"
+//               className="px-4 py-2 text-gray-800 transition bg-yellow-400 rounded-lg dark:bg-yellow-500 dark:text-gray-900 hover:bg-yellow-500 dark:hover:bg-yellow-600"
 //             >
 //               Register
 //             </Link>
@@ -77,7 +77,7 @@
 //       </div>
 
 //       {/* Hamburger Menu for Medium/Small Devices */}
-//       <div className="lg:hidden flex items-top p">
+//       <div className="flex lg:hidden items-top p">
 //         <button
 //           onClick={() => setIsMenuOpen(!isMenuOpen)}
 //           className="btn btn-ghost"
@@ -102,31 +102,31 @@
 //     <div className="flex flex-col items-start gap-2 p-4">
 //       <Link
 //         to="/"
-//         className="btn btn-ghost w-full text-left hover:bg-gray-300 dark:hover:bg-gray-700"
+//         className="w-full text-left btn btn-ghost hover:bg-gray-300 dark:hover:bg-gray-700"
 //       >
 //         Home
 //       </Link>
 //       <Link
 //         to="/all-visas"
-//         className="btn btn-ghost w-full text-left hover:bg-gray-300 dark:hover:bg-gray-700"
+//         className="w-full text-left btn btn-ghost hover:bg-gray-300 dark:hover:bg-gray-700"
 //       >
 //         All Visas
 //       </Link>
 //       <Link
 //         to="/add-visa"
-//         className="btn btn-ghost w-full text-left hover:bg-gray-300 dark:hover:bg-gray-700"
+//         className="w-full text-left btn btn-ghost hover:bg-gray-300 dark:hover:bg-gray-700"
 //       >
 //         Add Visa
 //       </Link>
 //       <Link
 //         to="/my-added-visas"
-//         className="btn btn-ghost w-full text-left hover:bg-gray-300 dark:hover:bg-gray-700"
+//         className="w-full text-left btn btn-ghost hover:bg-gray-300 dark:hover:bg-gray-700"
 //       >
 //         My Added Visas
 //       </Link>
 //       <Link
 //         to="/my-visa-applications"
-//         className="btn btn-ghost w-full text-left hover:bg-gray-300 dark:hover:bg-gray-700"
+//         className="w-full text-left btn btn-ghost hover:bg-gray-300 dark:hover:bg-gray-700"
 //       >
 //         My Visa Applications
 //       </Link>
@@ -134,13 +134,13 @@
 //         <>
 //           <Link
 //             to="/profile"
-//             className="btn btn-ghost w-full text-left hover:bg-gray-300 dark:hover:bg-gray-700"
+//             className="w-full text-left btn btn-ghost hover:bg-gray-300 dark:hover:bg-gray-700"
 //           >
 //             Profile
 //           </Link>
 //           <button
 //             onClick={logOut}
-//             className="btn btn-primary w-full text-center bg-yellow-400 dark:bg-yellow-500 hover:bg-yellow-500"
+//             className="w-full text-center bg-yellow-400 btn btn-primary dark:bg-yellow-500 hover:bg-yellow-500"
 //           >
 //             Logout
 //           </button>
@@ -149,13 +149,13 @@
 //         <>
 //           <Link
 //             to="/auth/login"
-//             className="btn btn-primary w-full text-center bg-yellow-400 hover:bg-yellow-500"
+//             className="w-full text-center bg-yellow-400 btn btn-primary hover:bg-yellow-500"
 //           >
 //             Login
 //           </Link>
 //           <Link
 //             to="/auth/register"
-//             className="btn btn-primary w-full text-center bg-yellow-400 hover:bg-yellow-500"
+//             className="w-full text-center bg-yellow-400 btn btn-primary hover:bg-yellow-500"
 //           >
 //             Register
 //           </Link>
@@ -234,6 +234,23 @@ const Navbar = () => {
     return location.pathname === path
   }
 
+  // Show admin-only links for a specific email, keep applications for any logged-in user
+  const isAdmin = user?.email === "admin@gmail.com"
+
+  const navItems = [
+    { path: "/", label: "Home" },
+    { path: "/all-visas", label: "All Visas" },
+    // Admin-only routes
+    ...(isAdmin
+      ? [
+          { path: "/add-visa", label: "Add Visa" },
+          { path: "/my-added-visas", label: "My Added Visas" },
+        ]
+      : []),
+    // My Applications is visible to any authenticated user
+    ...(user ? [{ path: "/my-visa-applications", label: "My Applications" }] : []),
+  ]
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -242,7 +259,7 @@ const Navbar = () => {
           : "bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm py-3"
       }`}
     >
-      <div className="container mx-auto px-4 flex items-center justify-between">
+      <div className="container flex items-center justify-between px-4 mx-auto">
         {/* Logo and Title */}
         <Link to="/" className="flex items-center gap-2 group">
           <motion.div
@@ -254,28 +271,22 @@ const Navbar = () => {
             <img
               src={logo || "/placeholder.svg"}
               alt="Visa Navigator Logo"
-              className="w-10 h-10 object-contain"
+              className="object-contain w-10 h-10"
               width={40}
               height={40}
             />
           </motion.div>
           <div className="flex flex-col">
-            <span className="text-lg font-bold text-gray-800 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+            <span className="text-lg font-bold text-gray-800 transition-colors dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400">
               Visa Navigator
             </span>
-            <span className="text-xs text-gray-500 dark:text-gray-400 hidden sm:block">Your Global Visa Partner</span>
+            <span className="hidden text-xs text-gray-500 dark:text-gray-400 sm:block">Your Global Visa Partner</span>
           </div>
         </Link>
 
         {/* Navigation Links (Desktop) */}
-        <nav className="hidden lg:flex items-center gap-1">
-          {[
-            { path: "/", label: "Home" },
-            { path: "/all-visas", label: "All Visas" },
-            { path: "/add-visa", label: "Add Visa" },
-            { path: "/my-added-visas", label: "My Added Visas" },
-            { path: "/my-visa-applications", label: "My Applications" },
-          ].map((item) => (
+        <nav className="items-center hidden gap-1 lg:flex">
+          {navItems.map((item) => (
             <Link
               key={item.path}
               to={item.path}
@@ -285,7 +296,7 @@ const Navbar = () => {
                   : "text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400"
               }`}
             >
-              {item.label}
+                {item.label}
               {isActive(item.path) && (
                 <motion.div
                   layoutId="activeIndicator"
@@ -304,14 +315,14 @@ const Navbar = () => {
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={toggleDarkMode}
-            className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+            className="p-2 text-gray-700 transition-colors bg-gray-100 rounded-full dark:bg-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700"
             aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
           >
             {isDarkMode ? <Sun size={18} className="text-yellow-400" /> : <Moon size={18} className="text-blue-600" />}
           </motion.button>
 
           {/* User Profile or Login/Register (Desktop) */}
-          <div className="hidden md:flex items-center gap-2">
+          <div className="items-center hidden gap-2 md:flex">
             {user ? (
               <div className="flex items-center gap-2">
                 <div className="relative group">
@@ -319,7 +330,7 @@ const Navbar = () => {
                     <img
                       src={user?.photoURL || defaultPic}
                       alt={user?.name || "User"}
-                      className="w-8 h-8 rounded-full border-2 border-gray-200 dark:border-gray-700 object-cover"
+                      className="object-cover w-8 h-8 border-2 border-gray-200 rounded-full dark:border-gray-700"
                       width={32}
                       height={32}
                     />
@@ -327,18 +338,18 @@ const Navbar = () => {
                   </button>
 
                   {/* Dropdown menu */}
-                  <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-right scale-95 group-hover:scale-100 z-50">
+                  <div className="absolute right-0 z-50 invisible w-48 mt-2 overflow-hidden transition-all duration-200 origin-top-right transform scale-95 bg-white rounded-lg shadow-lg opacity-0 dark:bg-gray-800 group-hover:opacity-100 group-hover:visible group-hover:scale-100">
                     <div className="py-2">
                       <Link
                         to="/profile"
-                        className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                        className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 transition-colors dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                       >
                         <UserIcon size={16} />
                         Profile
                       </Link>
                       <button
                         onClick={logOut}
-                        className="flex items-center gap-2 px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors w-full text-left"
+                        className="flex items-center w-full gap-2 px-4 py-2 text-sm text-left text-red-600 transition-colors dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700"
                       >
                         <LogOut size={16} />
                         Logout
@@ -351,13 +362,13 @@ const Navbar = () => {
               <div className="flex items-center gap-2">
                 <Link
                   to="/auth/login"
-                  className="px-4 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                  className="px-4 py-2 text-sm font-medium text-gray-700 transition-colors rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
                 >
                   Login
                 </Link>
                 <Link
                   to="/auth/register"
-                  className="px-4 py-2 rounded-lg text-sm font-medium bg-blue-600 hover:bg-blue-700 text-white transition-colors"
+                  className="px-4 py-2 text-sm font-medium text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700"
                 >
                   Register
                 </Link>
@@ -369,7 +380,7 @@ const Navbar = () => {
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="p-2 rounded-md md:hidden text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            className="p-2 text-gray-700 transition-colors rounded-md md:hidden dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
             aria-label="Toggle menu"
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -385,17 +396,11 @@ const Navbar = () => {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden overflow-hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800"
+            className="overflow-hidden bg-white border-t border-gray-200 md:hidden dark:bg-gray-900 dark:border-gray-800"
           >
-            <div className="container mx-auto px-4 py-3">
+            <div className="container px-4 py-3 mx-auto">
               <nav className="flex flex-col gap-1">
-                {[
-                  { path: "/", label: "Home" },
-                  { path: "/all-visas", label: "All Visas" },
-                  { path: "/add-visa", label: "Add Visa" },
-                  { path: "/my-added-visas", label: "My Added Visas" },
-                  { path: "/my-visa-applications", label: "My Applications" },
-                ].map((item) => (
+                {navItems.map((item) => (
                   <Link
                     key={item.path}
                     to={item.path}
@@ -411,14 +416,14 @@ const Navbar = () => {
               </nav>
 
               {/* Mobile User Actions */}
-              <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-800">
+              <div className="pt-4 mt-4 border-t border-gray-200 dark:border-gray-800">
                 {user ? (
                   <div className="flex flex-col gap-2">
                     <div className="flex items-center gap-3 px-4 py-2">
                       <img
                         src={user?.photoURL || defaultPic}
                         alt={user?.name || "User"}
-                        className="w-10 h-10 rounded-full border-2 border-gray-200 dark:border-gray-700 object-cover"
+                        className="object-cover w-10 h-10 border-2 border-gray-200 rounded-full dark:border-gray-700"
                         width={40}
                         height={40}
                       />
@@ -431,14 +436,14 @@ const Navbar = () => {
                     </div>
                     <Link
                       to="/profile"
-                      className="flex items-center gap-2 px-4 py-3 rounded-md text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                      className="flex items-center gap-2 px-4 py-3 text-sm font-medium text-gray-700 transition-colors rounded-md dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800"
                     >
                       <UserIcon size={16} />
                       View Profile
                     </Link>
                     <button
                       onClick={logOut}
-                      className="flex items-center gap-2 px-4 py-3 rounded-md text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                      className="flex items-center gap-2 px-4 py-3 text-sm font-medium text-red-600 transition-colors rounded-md dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20"
                     >
                       <LogOut size={16} />
                       Logout
