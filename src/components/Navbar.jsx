@@ -255,8 +255,8 @@ const Navbar = () => {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-white dark:bg-gray-900 shadow-md py-2"
-          : "bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm py-3"
+          ? "bg-card shadow-md py-2"
+          : "bg-card/95 backdrop-blur-sm py-3"
       }`}
     >
       <div className="container flex items-center justify-between px-4 mx-auto">
@@ -277,10 +277,10 @@ const Navbar = () => {
             />
           </motion.div>
           <div className="flex flex-col">
-            <span className="text-lg font-bold text-gray-800 transition-colors dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400">
+            <span className="text-lg font-bold text-foreground transition-colors group-hover:text-primary">
               Visa Navigator
             </span>
-            <span className="hidden text-xs text-gray-500 dark:text-gray-400 sm:block">Your Global Visa Partner</span>
+            <span className="hidden text-xs text-muted-foreground sm:block">Your Global Visa Partner</span>
           </div>
         </Link>
 
@@ -292,15 +292,15 @@ const Navbar = () => {
               to={item.path}
               className={`px-3 py-2 rounded-md text-sm font-medium transition-colors relative ${
                 isActive(item.path)
-                  ? "text-blue-600 dark:text-blue-400"
-                  : "text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400"
+                  ? "text-primary"
+                  : "text-foreground hover:text-primary"
               }`}
             >
                 {item.label}
               {isActive(item.path) && (
                 <motion.div
                   layoutId="activeIndicator"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600 dark:bg-blue-400 rounded-full"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full"
                   initial={false}
                   transition={{ type: "spring", stiffness: 500, damping: 30 }}
                 />
@@ -315,10 +315,10 @@ const Navbar = () => {
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={toggleDarkMode}
-            className="p-2 text-gray-700 transition-colors bg-gray-100 rounded-full dark:bg-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700"
+            className="p-2 text-foreground transition-colors bg-muted rounded-full hover:bg-border"
             aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
           >
-            {isDarkMode ? <Sun size={18} className="text-yellow-400" /> : <Moon size={18} className="text-blue-600" />}
+            {isDarkMode ? <Sun size={18} className="text-accent-alt" /> : <Moon size={18} className="text-primary" />}
           </motion.button>
 
           {/* User Profile or Login/Register (Desktop) */}
@@ -338,18 +338,18 @@ const Navbar = () => {
                   </button>
 
                   {/* Dropdown menu */}
-                  <div className="absolute right-0 z-50 invisible w-48 mt-2 overflow-hidden transition-all duration-200 origin-top-right transform scale-95 bg-white rounded-lg shadow-lg opacity-0 dark:bg-gray-800 group-hover:opacity-100 group-hover:visible group-hover:scale-100">
+                  <div className="absolute right-0 z-50 invisible w-48 mt-2 overflow-hidden transition-all duration-200 origin-top-right transform scale-95 bg-card rounded-lg shadow-lg opacity-0 group-hover:opacity-100 group-hover:visible group-hover:scale-100 border border-border">
                     <div className="py-2">
                       <Link
                         to="/profile"
-                        className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 transition-colors dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        className="flex items-center gap-2 px-4 py-2 text-sm text-foreground transition-colors hover:bg-muted"
                       >
                         <UserIcon size={16} />
                         Profile
                       </Link>
                       <button
                         onClick={logOut}
-                        className="flex items-center w-full gap-2 px-4 py-2 text-sm text-left text-red-600 transition-colors dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        className="flex items-center w-full gap-2 px-4 py-2 text-sm text-left text-error transition-colors hover:bg-muted"
                       >
                         <LogOut size={16} />
                         Logout
@@ -362,13 +362,13 @@ const Navbar = () => {
               <div className="flex items-center gap-2">
                 <Link
                   to="/auth/login"
-                  className="px-4 py-2 text-sm font-medium text-gray-700 transition-colors rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  className="px-4 py-2 text-sm font-medium text-foreground transition-colors rounded-lg hover:bg-muted"
                 >
                   Login
                 </Link>
                 <Link
                   to="/auth/register"
-                  className="px-4 py-2 text-sm font-medium text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700"
+                  className="px-4 py-2 text-sm font-medium text-white transition-colors bg-primary rounded-lg hover:bg-primary-dark"
                 >
                   Register
                 </Link>
@@ -380,7 +380,7 @@ const Navbar = () => {
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="p-2 text-gray-700 transition-colors rounded-md md:hidden dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="p-2 text-foreground transition-colors rounded-md md:hidden hover:bg-muted"
             aria-label="Toggle menu"
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -396,7 +396,7 @@ const Navbar = () => {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="overflow-hidden bg-white border-t border-gray-200 md:hidden dark:bg-gray-900 dark:border-gray-800"
+            className="overflow-hidden bg-card border-t border-border md:hidden"
           >
             <div className="container px-4 py-3 mx-auto">
               <nav className="flex flex-col gap-1">
@@ -406,8 +406,8 @@ const Navbar = () => {
                     to={item.path}
                     className={`px-4 py-3 rounded-md text-sm font-medium transition-colors ${
                       isActive(item.path)
-                        ? "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400"
-                        : "text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800"
+                        ? "bg-primary/10 text-primary"
+                        : "text-foreground hover:bg-muted"
                     }`}
                   >
                     {item.label}
@@ -416,34 +416,34 @@ const Navbar = () => {
               </nav>
 
               {/* Mobile User Actions */}
-              <div className="pt-4 mt-4 border-t border-gray-200 dark:border-gray-800">
+              <div className="pt-4 mt-4 border-t border-border">
                 {user ? (
                   <div className="flex flex-col gap-2">
                     <div className="flex items-center gap-3 px-4 py-2">
                       <img
                         src={user?.photoURL || defaultPic}
                         alt={user?.name || "User"}
-                        className="object-cover w-10 h-10 border-2 border-gray-200 rounded-full dark:border-gray-700"
+                        className="object-cover w-10 h-10 border-2 border-border rounded-full"
                         width={40}
                         height={40}
                       />
                       <div className="flex flex-col">
-                        <span className="font-medium text-gray-800 dark:text-gray-200">
+                        <span className="font-medium text-foreground">
                           {user?.displayName || "User"}
                         </span>
-                        <span className="text-xs text-gray-500 dark:text-gray-400">{user?.email || ""}</span>
+                        <span className="text-xs text-muted-foreground">{user?.email || ""}</span>
                       </div>
                     </div>
                     <Link
                       to="/profile"
-                      className="flex items-center gap-2 px-4 py-3 text-sm font-medium text-gray-700 transition-colors rounded-md dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800"
+                      className="flex items-center gap-2 px-4 py-3 text-sm font-medium text-foreground transition-colors rounded-md hover:bg-muted"
                     >
                       <UserIcon size={16} />
                       View Profile
                     </Link>
                     <button
                       onClick={logOut}
-                      className="flex items-center gap-2 px-4 py-3 text-sm font-medium text-red-600 transition-colors rounded-md dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20"
+                      className="flex items-center gap-2 px-4 py-3 text-sm font-medium text-error transition-colors rounded-md hover:bg-muted"
                     >
                       <LogOut size={16} />
                       Logout
@@ -453,13 +453,13 @@ const Navbar = () => {
                   <div className="grid grid-cols-2 gap-2 px-4">
                     <Link
                       to="/auth/login"
-                      className="flex justify-center items-center px-4 py-2.5 rounded-lg text-sm font-medium border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                      className="flex justify-center items-center px-4 py-2.5 rounded-lg text-sm font-medium border border-border text-foreground hover:bg-muted transition-colors"
                     >
                       Login
                     </Link>
                     <Link
                       to="/auth/register"
-                      className="flex justify-center items-center px-4 py-2.5 rounded-lg text-sm font-medium bg-blue-600 hover:bg-blue-700 text-white transition-colors"
+                      className="flex justify-center items-center px-4 py-2.5 rounded-lg text-sm font-medium bg-primary hover:bg-primary-dark text-white transition-colors"
                     >
                       Register
                     </Link>

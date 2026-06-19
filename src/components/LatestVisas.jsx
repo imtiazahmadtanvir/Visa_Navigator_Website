@@ -184,15 +184,15 @@ const LatestVisas = () => {
 
   // Skeleton loader for cards
   const SkeletonCard = () => (
-    <div className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
-      <div className="h-48 bg-gray-200 dark:bg-gray-700 animate-pulse"></div>
+    <div className="bg-card rounded-xl overflow-hidden shadow-lg">
+      <div className="h-48 bg-muted animate-pulse"></div>
       <div className="p-5 space-y-3">
-        <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded animate-pulse w-3/4 mx-auto"></div>
-        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse w-1/2"></div>
-        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse w-2/3"></div>
-        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse w-1/2"></div>
-        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse w-3/4"></div>
-        <div className="h-10 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mt-4"></div>
+        <div className="h-6 bg-muted rounded animate-pulse w-3/4 mx-auto"></div>
+        <div className="h-4 bg-muted rounded animate-pulse w-1/2"></div>
+        <div className="h-4 bg-muted rounded animate-pulse w-2/3"></div>
+        <div className="h-4 bg-muted rounded animate-pulse w-1/2"></div>
+        <div className="h-4 bg-muted rounded animate-pulse w-3/4"></div>
+        <div className="h-10 bg-muted rounded animate-pulse mt-4"></div>
       </div>
     </div>
   )
@@ -200,17 +200,17 @@ const LatestVisas = () => {
   // Error state
   if (error) {
     return (
-      <section className="py-16 bg-gray-50 dark:bg-gray-900 transition duration-500">
+      <section className="py-16 bg-background transition duration-500">
         <div className="container mx-auto px-4">
           <div className="max-w-lg mx-auto text-center">
-            <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-4">Oops! Something went wrong</h2>
-            <p className="text-gray-600 dark:text-gray-400 mb-8">
+            <h2 className="text-3xl font-bold text-foreground mb-4">Oops! Something went wrong</h2>
+            <p className="text-muted-foreground mb-8">
               We could not load the latest visas. Please try again later.
             </p>
-            <p className="text-red-500 dark:text-red-400 text-sm mb-6">Error: {error}</p>
+            <p className="text-error text-sm mb-6">Error: {error}</p>
             <button
               onClick={() => window.location.reload()}
-              className="px-6 py-3 bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-semibold rounded-lg transition-colors"
+              className="px-6 py-3 bg-primary hover:bg-primary-dark text-white font-semibold rounded-lg transition-colors"
             >
               Retry
             </button>
@@ -221,7 +221,7 @@ const LatestVisas = () => {
   }
 
   return (
-    <section className="py-16 bg-gray-50 dark:bg-gray-900 transition duration-500">
+    <section className="py-16 bg-background transition duration-500">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -229,10 +229,10 @@ const LatestVisas = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Latest Visa Opportunities
           </h2>
-          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          <p className="text-muted-foreground max-w-2xl mx-auto">
             Discover the most recent visa options available for your next international journey.
           </p>
         </motion.div>
@@ -245,24 +245,24 @@ const LatestVisas = () => {
             transition={{ delay: 0.2, duration: 0.5 }}
             className="max-w-3xl mx-auto mb-10"
           >
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 flex flex-col md:flex-row gap-4">
+            <div className="bg-card rounded-xl shadow-md p-4 flex flex-col md:flex-row gap-4 border border-border">
               <div className="relative flex-grow">
-                <Search className="absolute left-3 top-3 text-gray-400 dark:text-gray-500" size={18} />
+                <Search className="absolute left-3 top-3 text-muted-foreground" size={18} />
                 <input
                   type="text"
                   placeholder="Search by country or visa type..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                  className="input-modern"
                 />
               </div>
 
               <div className="relative min-w-[180px]">
-                <Filter className="absolute left-3 top-3 text-gray-400 dark:text-gray-500" size={18} />
+                <Filter className="absolute left-3 top-3 text-muted-foreground" size={18} />
                 <select
                   value={selectedType}
                   onChange={(e) => setSelectedType(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-yellow-400 appearance-none"
+                  className="w-full pl-10 pr-4 py-2 border border-border rounded-lg bg-input text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all appearance-none"
                 >
                   <option value="">All Visa Types</option>
                   {visaTypes.map((type) => (
@@ -295,7 +295,7 @@ const LatestVisas = () => {
                 key={visa._id}
                 variants={cardVariants}
                 whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
+                className="bg-card rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-border"
               >
                 <div className="relative h-48 overflow-hidden">
                   <img
@@ -308,7 +308,7 @@ const LatestVisas = () => {
                     }}
                   />
                   <div className="absolute top-0 right-0 m-3">
-                    <span className="px-3 py-1 bg-yellow-400/90 text-gray-800 text-xs font-medium rounded-full">
+                    <span className="px-3 py-1 bg-accent-alt/90 text-white text-xs font-medium rounded-full">
                       {visa.visaType || "General Visa"}
                     </span>
                   </div>
@@ -321,30 +321,30 @@ const LatestVisas = () => {
 
                 <div className="p-5">
                   <div className="space-y-3 mb-4">
-                    <div className="flex items-center text-gray-700 dark:text-gray-300">
-                      <MapPin size={16} className="mr-2 text-yellow-500" />
+                    <div className="flex items-center text-foreground/70">
+                      <MapPin size={16} className="mr-2 text-primary" />
                       <span>{visa.countryName || "Unknown Country"}</span>
                     </div>
 
-                    <div className="flex items-center text-gray-700 dark:text-gray-300">
-                      <Clock size={16} className="mr-2 text-yellow-500" />
+                    <div className="flex items-center text-foreground/70">
+                      <Clock size={16} className="mr-2 text-primary" />
                       <span>Processing: {visa.processingTime || "Contact for details"}</span>
                     </div>
 
-                    <div className="flex items-center text-gray-700 dark:text-gray-300">
-                      <DollarSign size={16} className="mr-2 text-yellow-500" />
+                    <div className="flex items-center text-foreground/70">
+                      <DollarSign size={16} className="mr-2 text-primary" />
                       <span>Fee: ${visa.fee || "0"}</span>
                     </div>
 
-                    <div className="flex items-center text-gray-700 dark:text-gray-300">
-                      <Calendar size={16} className="mr-2 text-yellow-500" />
+                    <div className="flex items-center text-foreground/70">
+                      <Calendar size={16} className="mr-2 text-primary" />
                       <span>Validity: {visa.validity || "Contact for details"}</span>
                     </div>
                   </div>
 
                   <Link
                     to={`/visa-details/${visa._id}`}
-                    className="flex items-center justify-center gap-2 w-full py-3 bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-semibold rounded-lg transition-colors"
+                    className="flex items-center justify-center gap-2 w-full py-3 bg-primary hover:bg-primary-dark text-white font-semibold rounded-lg transition-colors"
                   >
                     View Details
                     <ExternalLink size={16} />
@@ -355,13 +355,13 @@ const LatestVisas = () => {
           </motion.div>
         ) : (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-12">
-            <p className="text-gray-500 dark:text-gray-400 text-lg mb-6">No visas found matching your criteria.</p>
+            <p className="text-muted-foreground text-lg mb-6">No visas found matching your criteria.</p>
             <button
               onClick={() => {
                 setSearchTerm("")
                 setSelectedType("")
               }}
-              className="px-6 py-3 bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-semibold rounded-lg transition-colors"
+              className="px-6 py-3 bg-primary hover:bg-primary-dark text-white font-semibold rounded-lg transition-colors"
             >
               Reset Filters
             </button>
@@ -378,7 +378,7 @@ const LatestVisas = () => {
           >
             <Link
               to="/all-visas"
-              className="inline-flex items-center gap-2 px-8 py-3 bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
+              className="inline-flex items-center gap-2 px-8 py-3 bg-primary hover:bg-primary-dark text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
             >
               Explore All Visa Options
               <ChevronRight size={18} />

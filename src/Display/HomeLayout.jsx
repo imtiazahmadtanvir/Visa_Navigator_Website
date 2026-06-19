@@ -10,26 +10,6 @@ import FloatingChatbot from "../components/FloatingChatbot";
 
 
 const HomeLayout = () => {
-  const [isDarkMode, setIsDarkMode] = useState(
-    localStorage.getItem("theme") === "dark"
-  );
-
-  useEffect(() => {
-    const root = window.document.documentElement;
-    if (isDarkMode) {
-      root.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      root.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
-  }, [isDarkMode]);
-
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-  };
-
-
   const latestVisas = [
     {
       id: 1,
@@ -51,43 +31,27 @@ const HomeLayout = () => {
       validity: "1 year",
       applicationMethod: "Offline",
     },
-    // Add more visa objects here...
   ];
 
-
   return (
-    <div className="bg-white dark:bg-gray-900 dark:text-white min-h-screen">
+    <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
       <Navbar />
-
-      <div className="flex justify-end p-4">
-        <label className="flex items-center gap-2 cursor-pointer">
-          <span className="text-sm">Light</span>
-          <input
-            type="checkbox"
-            checked={isDarkMode}
-            onChange={toggleTheme}
-            className="toggle toggle-primary"
-          />
-          <span className="text-sm">Dark</span>
-        </label>
-      </div>
-
       <Banner />
-      <div className="w-11/12 mx-auto">
-      <LatestVisas visas={latestVisas} />
-
+      
+      <div className="w-11/12 mx-auto py-12">
+        <LatestVisas visas={latestVisas} />
       </div>
-      <div className="w-11/12 mx-auto">
-      <TopDestinations></TopDestinations>
 
+      <div className="w-11/12 mx-auto py-12">
+        <TopDestinations />
       </div>
-      <div className="w-11/12 mx-auto mb-4 ">
-      <Testimonials></Testimonials>
 
+      <div className="w-11/12 mx-auto py-12">
+        <Testimonials />
       </div>
 
       <Footer />
-      <FloatingChatbot></FloatingChatbot>
+      <FloatingChatbot />
     </div>
   );
 };

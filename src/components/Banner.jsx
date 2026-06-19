@@ -99,10 +99,10 @@ const Banner = () => {
   return (
     <div className="w-11/12 lg:w-10/12 mx-auto relative">
       {/* Decorative elements */}
-      <div className="absolute -top-20 -left-20 w-64 h-64 bg-yellow-400/10 rounded-full blur-3xl pointer-events-none"></div>
-      <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute -top-20 -left-20 w-64 h-64 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-accent/10 rounded-full blur-3xl pointer-events-none"></div>
 
-      <section id="banner" className="py-12 px-4 md:py-16 text-center text-gray-900 dark:text-gray-100 relative">
+      <section id="banner" className="py-12 px-4 md:py-16 text-center text-foreground relative">
         {/* Enhanced Swiper Slider */}
         {imagesLoaded ? (
           <Swiper
@@ -172,10 +172,10 @@ const Banner = () => {
           <motion.div variants={itemVariants} className="mb-6">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4 leading-tight">
               Welcome to{" "}
-              <span className="text-yellow-500 dark:text-yellow-400 relative inline-block">
+              <span className="text-primary relative inline-block">
                 Visa Navigator!
                 <motion.span
-                  className="absolute -bottom-2 left-0 w-full h-1 bg-yellow-400/50 rounded-full"
+                  className="absolute -bottom-2 left-0 w-full h-1 bg-primary/50 rounded-full"
                   initial={{ width: 0 }}
                   animate={{ width: "100%" }}
                   transition={{ delay: 1, duration: 0.8 }}
@@ -183,7 +183,7 @@ const Banner = () => {
               </span>
             </h2>
 
-            <div className="text-xl md:text-2xl font-medium text-gray-700 dark:text-gray-300 h-8">
+            <div className="text-xl md:text-2xl font-medium text-foreground h-8">
               <Typewriter
                 words={[
                   "Start your journey today",
@@ -202,7 +202,7 @@ const Banner = () => {
           </motion.div>
 
           <Fade cascade damping={0.2} triggerOnce>
-            <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
+            <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed">
               Discover a seamless way to manage and apply for visas. Our platform streamlines the entire process, making
               international travel more accessible than ever before.
             </p>
@@ -213,7 +213,7 @@ const Banner = () => {
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Link
                   to="/all-visas"
-                  className="inline-flex items-center gap-2 bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-semibold px-6 py-3 rounded-lg shadow-lg hover:shadow-yellow-400/20 transition-all duration-300 dark:bg-yellow-500 dark:hover:bg-yellow-600"
+                  className="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white font-semibold px-6 py-3 rounded-lg shadow-lg hover:shadow-primary/20 transition-all duration-300"
                 >
                   Explore Visas Now
                   <ArrowRight className="w-5 h-5" />
@@ -223,7 +223,7 @@ const Banner = () => {
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Link
                   to="/add-visa"
-                  className="inline-flex items-center gap-2 bg-white hover:bg-gray-100 text-gray-800 border border-gray-200 font-semibold px-6 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white dark:border-gray-700"
+                  className="inline-flex items-center gap-2 bg-card hover:bg-muted text-foreground border border-border font-semibold px-6 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
                 >
                   Apply for a Visa
                 </Link>
@@ -242,10 +242,10 @@ const Banner = () => {
                 <motion.div
                   key={index}
                   whileHover={{ y: -5 }}
-                  className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300"
+                  className="bg-card rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 border border-border"
                 >
-                  <h3 className="text-3xl font-bold text-yellow-500 dark:text-yellow-400 mb-2">{stat.count}</h3>
-                  <p className="text-gray-600 dark:text-gray-400">{stat.label}</p>
+                  <h3 className="text-3xl font-bold text-primary mb-2">{stat.count}</h3>
+                  <p className="text-muted-foreground">{stat.label}</p>
                 </motion.div>
               ))}
             </div>
