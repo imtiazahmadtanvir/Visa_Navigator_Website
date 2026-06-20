@@ -253,12 +253,12 @@ const Chatbot = () => {
   return (
     <div className="flex flex-col h-full w-full overflow-hidden">
       {/* Fixed Header */}
-      <div className="bg-blue-700 text-white py-2 px-3 sm:py-3 sm:px-6 md:py-4 md:px-8 border-b border-blue-800 flex-shrink-0">
+      <div className="bg-ink-800 dark:bg-ink-900 text-white py-2 px-3 sm:py-3 sm:px-6 md:py-4 md:px-8 border-b border-ink-900 dark:border-ink-700 flex-shrink-0">
         <div className="flex items-center justify-between">
-          <h2 className="text-xl sm:text-2xl md:text-3xl mx-auto font-bold text-center flex items-center gap-1 sm:gap-2 md:gap-3">
+          <h2 className="text-xl sm:text-2xl md:text-3xl mx-auto font-display font-bold text-center flex items-center gap-1 sm:gap-2 md:gap-3">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7"
+              className="h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7 text-stamp-400"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -278,7 +278,7 @@ const Chatbot = () => {
       {/* Scrollable Content Area */}
       <div className="flex-grow overflow-hidden relative">
         {error && (
-          <div className="m-2 sm:m-4 md:m-7 p-4 bg-red-100 border-l-4 border-red-500 text-red-700">
+          <div className="m-2 sm:m-4 md:m-7 p-4 bg-red-50 dark:bg-red-950/30 border-l-4 border-red-500 text-red-700 dark:text-red-300 rounded-md">
             <div className="flex">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -299,14 +299,14 @@ const Chatbot = () => {
           </div>
         )}
 
-        <div className="h-full overflow-y-auto bg-blue-50 pb-4">
+        <div className="h-full overflow-y-auto bg-ink-50 dark:bg-surface-dark pb-4">
           <div className="p-3 sm:p-4 md:p-6 lg:p-8">
             {messages.length === 0 ? (
               <div className="flex flex-col items-center justify-center text-center text-muted-foreground p-3 sm:p-6 md:p-8 lg:p-10">
-                <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-medium mb-1 sm:mb-2 md:mb-3 text-blue-800">
+                <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-display font-semibold mb-1 sm:mb-2 md:mb-3 text-ink-900 dark:text-white">
                   Welcome to Visa Navigator
                 </h3>
-                <p className="text-sm sm:text-base md:text-lg lg:text-xl text-blue-700 max-w-2xl mx-auto">
+                <p className="text-sm sm:text-base md:text-lg lg:text-xl text-ink-500 dark:text-ink-300 max-w-2xl mx-auto">
                   Ask me anything about visa applications, requirements, processing times, or travel documentation!
                 </p>
                 <div className="mt-3 sm:mt-4 md:mt-6 lg:mt-8 space-y-2 md:space-y-3 w-full max-w-2xl">
@@ -314,7 +314,7 @@ const Chatbot = () => {
                     <button
                       key={index}
                       onClick={() => handlePredefinedQuestionClick(item.question)}
-                      className="bg-blue-100 hover:bg-blue-200 text-blue-800 border border-blue-300 rounded-md w-full text-left justify-start text-xs sm:text-sm md:text-base lg:text-lg py-2 px-3 md:py-3 md:px-4 h-auto min-h-[40px] md:min-h-[50px]"
+                      className="bg-ink-100 dark:bg-ink-800 hover:bg-stamp-100 dark:hover:bg-ink-700 text-ink-900 dark:text-ink-100 border border-ink-200 dark:border-ink-700 rounded-md w-full text-left justify-start text-xs sm:text-sm md:text-base lg:text-lg py-2 px-3 md:py-3 md:px-4 h-auto min-h-[40px] md:min-h-[50px] transition-colors"
                     >
                       {item.question}
                     </button>
@@ -329,7 +329,9 @@ const Chatbot = () => {
                     className={cn(
                       "flex flex-col rounded-lg cursor-pointer transition-all hover:opacity-90 hover:shadow-md",
                       "p-3 sm:p-4 md:p-5",
-                      msg.role === "user" ? "ml-auto bg-blue-600 text-white" : "mr-auto bg-blue-100 text-blue-900",
+                      msg.role === "user"
+                        ? "ml-auto bg-ink-700 dark:bg-stamp-500 text-white dark:text-ink-950"
+                        : "mr-auto bg-ink-100 dark:bg-ink-800 text-ink-900 dark:text-ink-100",
                       "max-w-[85%] sm:max-w-[80%] md:max-w-[75%] lg:max-w-[70%]",
                     )}
                     onClick={() => handleMessageClick(msg)}
@@ -341,7 +343,7 @@ const Chatbot = () => {
                       <span
                         className={cn(
                           "text-[10px] sm:text-xs md:text-sm",
-                          msg.role === "user" ? "text-blue-100" : "text-blue-700",
+                          msg.role === "user" ? "text-ink-100 dark:text-ink-900" : "text-ink-500 dark:text-ink-400",
                         )}
                       >
                         {msg.role === "model" && (
@@ -364,7 +366,7 @@ const Chatbot = () => {
                       <span
                         className={cn(
                           "text-[10px] sm:text-xs md:text-sm",
-                          msg.role === "user" ? "text-blue-100" : "text-blue-700",
+                          msg.role === "user" ? "text-ink-100 dark:text-ink-900" : "text-ink-500 dark:text-ink-400",
                         )}
                       >
                         {formatTime(msg.timestamp)}
@@ -374,11 +376,11 @@ const Chatbot = () => {
                 ))}
 
                 {isLoading && (
-                  <div className="flex flex-col max-w-[85%] sm:max-w-[80%] md:max-w-[75%] lg:max-w-[70%] rounded-lg p-3 sm:p-4 md:p-5 mr-auto bg-blue-100 text-blue-900">
+                  <div className="flex flex-col max-w-[85%] sm:max-w-[80%] md:max-w-[75%] lg:max-w-[70%] rounded-lg p-3 sm:p-4 md:p-5 mr-auto bg-ink-100 dark:bg-ink-800 text-ink-900 dark:text-ink-100">
                     <div className="flex items-center gap-1 sm:gap-2 md:gap-3">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 animate-spin"
+                        className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 animate-spin text-stamp-500"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -402,8 +404,8 @@ const Chatbot = () => {
 
                 {/* Show remaining questions after each bot response */}
                 {showSuggestions && messages.length > 0 && messages[messages.length - 1].role === "model" && (
-                  <div className="my-3 sm:my-4 md:my-5 p-2 sm:p-3 md:p-4 bg-blue-50 border border-blue-200 rounded-lg max-w-4xl mx-auto">
-                    <p className="text-xs sm:text-sm md:text-base lg:text-lg font-medium text-blue-800 mb-1 sm:mb-2 md:mb-3">
+                  <div className="my-3 sm:my-4 md:my-5 p-2 sm:p-3 md:p-4 bg-stamp-50 dark:bg-ink-800 border border-stamp-200 dark:border-ink-700 rounded-lg max-w-4xl mx-auto">
+                    <p className="text-xs sm:text-sm md:text-base lg:text-lg font-medium text-ink-900 dark:text-white mb-1 sm:mb-2 md:mb-3">
                       You might also want to ask:
                     </p>
                     <div className="space-y-1.5 sm:space-y-2 md:space-y-3 grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3">
@@ -413,7 +415,7 @@ const Chatbot = () => {
                           <button
                             key={index}
                             onClick={() => handlePredefinedQuestionClick(item.question)}
-                            className="bg-white hover:bg-blue-100 text-blue-800 border border-blue-200 rounded-md w-full text-left justify-start text-xs sm:text-sm md:text-base py-1.5 px-2 md:py-2 md:px-3 h-auto min-h-[32px] md:min-h-[40px]"
+                            className="bg-white dark:bg-ink-900 hover:bg-stamp-100 dark:hover:bg-ink-700 text-ink-900 dark:text-ink-100 border border-ink-200 dark:border-ink-700 rounded-md w-full text-left justify-start text-xs sm:text-sm md:text-base py-1.5 px-2 md:py-2 md:px-3 h-auto min-h-[32px] md:min-h-[40px] transition-colors"
                           >
                             {item.question}
                           </button>
@@ -430,7 +432,7 @@ const Chatbot = () => {
       </div>
 
       {/* Fixed Input Area */}
-      <div className="p-2 sm:p-3 md:p-4 lg:p-6 border-t border-blue-200 bg-blue-50 flex-shrink-0">
+      <div className="p-2 sm:p-3 md:p-4 lg:p-6 border-t border-ink-200 dark:border-ink-700 bg-ink-50 dark:bg-surface-dark-subtle flex-shrink-0">
         <div className="flex gap-1 sm:gap-2 md:gap-3 max-w-4xl mx-auto">
           <input
             ref={inputRef}
@@ -439,13 +441,13 @@ const Chatbot = () => {
             onKeyDown={handleKeyDown}
             placeholder="Ask about visa requirements..."
             disabled={isLoading || !sessionId}
-            className="flex-1 border border-blue-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base md:text-lg h-9 sm:h-10 md:h-12"
+            className="flex-1 border border-ink-300 dark:border-ink-600 bg-white dark:bg-ink-900 text-ink-900 dark:text-ink-100 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-stamp-400 text-sm sm:text-base md:text-lg h-9 sm:h-10 md:h-12"
           />
           <button
             onClick={() => handleSendMessage()}
             disabled={isLoading || !userInput.trim() || !sessionId}
             className={cn(
-              "bg-blue-700 hover:bg-blue-800 text-white rounded-md h-9 w-9 sm:h-10 sm:w-10 md:h-12 md:w-12 flex items-center justify-center",
+              "bg-ink-800 dark:bg-stamp-500 hover:bg-ink-900 dark:hover:bg-stamp-400 text-white dark:text-ink-950 rounded-md h-9 w-9 sm:h-10 sm:w-10 md:h-12 md:w-12 flex items-center justify-center transition-colors",
               (isLoading || !userInput.trim() || !sessionId) && "opacity-50 cursor-not-allowed",
             )}
           >
@@ -495,4 +497,3 @@ const Chatbot = () => {
 }
 
 export default Chatbot
-

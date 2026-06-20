@@ -2,61 +2,67 @@
 "use client"
 
 import { useState, useCallback, useEffect } from "react"
+import { AnimatePresence, motion } from "framer-motion"
+import { X, MessageCircle } from "lucide-react"
 import { cn } from "../utils/helpers"
 import Chatbot from "./Chatbot"
 
 // Custom Modal Component
 const Modal = ({ isOpen, onClose, children, screenSize }) => {
-  if (!isOpen) return null
-
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center" onClick={onClose}>
-      <div className="fixed inset-0 bg-black/80 backdrop-blur-sm" aria-hidden="true" />
-      <div
-        className={cn(
-          "bg-white p-0 relative rounded-lg shadow-xl overflow-hidden flex flex-col",
-          screenSize === "small"
-            ? "w-[95vw] h-[90vh] max-w-none"
-            : screenSize === "medium"
-              ? "w-[85vw] h-[85vh] max-w-[800px] rounded-xl"
-              : "w-[75vw] h-[85vh] max-w-[1200px] rounded-xl",
-        )}
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Close button */}
-        <button
-          onClick={onClose}
-          className={cn(
-            "absolute z-50 rounded-full backdrop-blur-sm",
-            screenSize === "small"
-              ? "right-2 top-2 p-1.5 bg-white/70 hover:bg-white"
-              : screenSize === "medium"
-                ? "right-3 top-3 p-2 bg-white/75 hover:bg-white shadow-md"
-                : "right-4 top-4 p-2.5 bg-white/80 hover:bg-white shadow-lg",
-          )}
-          aria-label="Close"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
+    <AnimatePresence>
+      {isOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center" onClick={onClose}>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 bg-ink-950/70 backdrop-blur-sm"
+            aria-hidden="true"
+          />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 12 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 12 }}
+            transition={{ type: "spring", stiffness: 320, damping: 28 }}
             className={cn(
-              screenSize === "small" ? "h-4 w-4" : screenSize === "medium" ? "h-4.5 w-4.5" : "h-5 w-5",
-              "text-blue-800",
+              "bg-white dark:bg-surface-dark-subtle p-0 relative rounded-xl2 shadow-soft-lg overflow-hidden flex flex-col border border-ink-100 dark:border-ink-800",
+              screenSize === "small"
+                ? "w-[95vw] h-[90vh] max-w-none"
+                : screenSize === "medium"
+                  ? "w-[85vw] h-[85vh] max-w-[800px]"
+                  : "w-[75vw] h-[85vh] max-w-[1200px]",
             )}
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+            onClick={(e) => e.stopPropagation()}
           >
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-        </button>
+            {/* Close button */}
+            <button
+              onClick={onClose}
+              className={cn(
+                "absolute z-50 rounded-full backdrop-blur-sm transition-colors",
+                "bg-white/80 hover:bg-white dark:bg-ink-800/80 dark:hover:bg-ink-700",
+                screenSize === "small"
+                  ? "right-2 top-2 p-1.5"
+                  : screenSize === "medium"
+                    ? "right-3 top-3 p-2 shadow-md"
+                    : "right-4 top-4 p-2.5 shadow-lg",
+              )}
+              aria-label="Close"
+            >
+              <X
+                className={cn(
+                  screenSize === "small" ? "h-4 w-4" : screenSize === "medium" ? "h-4.5 w-4.5" : "h-5 w-5",
+                  "text-ink-700 dark:text-ink-200",
+                )}
+              />
+            </button>
 
-        <div className="h-full w-full overflow-hidden">{children}</div>
-      </div>
-    </div>
+            <div className="h-full w-full overflow-hidden">{children}</div>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
   )
 }
 
@@ -93,50 +99,26 @@ const FloatingChatbot = () => {
   return (
     <>
       {/* Floating chat button */}
-      <button
+      <motion.button
         onClick={handleOpen}
+        whileHover={{ scale: 1.06 }}
+        whileTap={{ scale: 0.94 }}
         className={cn(
-          "fixed rounded-full shadow-lg z-50",
+          "fixed rounded-full shadow-soft-lg z-50",
           "flex items-center justify-center",
-          "bg-blue-700 text-white hover:bg-blue-800 transition-all duration-300",
+          "bg-ink-800 text-white hover:bg-ink-900 dark:bg-stamp-400 dark:text-ink-950 dark:hover:bg-stamp-300 transition-colors duration-300",
+          "ring-4 ring-stamp-400/20",
           screenSize === "small"
-            ? "bottom-4 right-4 w-12 h-12 gap-1"
+            ? "bottom-4 right-4 w-12 h-12"
             : screenSize === "medium"
-              ? "bottom-6 right-6 w-14 h-14 gap-1.5"
-              : "bottom-8 right-8 w-16 h-16 gap-2",
+              ? "bottom-6 right-6 w-14 h-14"
+              : "bottom-8 right-8 w-16 h-16",
           isOpen ? "scale-0 opacity-0" : "scale-100 opacity-100",
         )}
         aria-label="Open chat"
       >
-        {/* {screenSize !== "small" && (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className={cn(screenSize === "medium" ? "h-4 w-4" : "h-5 w-5")}
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-            <line x1="8" y1="21" x2="16" y2="21"></line>
-            <line x1="12" y1="17" x2="12" y2="21"></line>
-          </svg>
-        )} */}
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className={cn(screenSize === "small" ? "h-5 w-5" : screenSize === "medium" ? "h-5 w-5" : "h-6 w-6")}
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-        </svg>
-      </button>
+        <MessageCircle className={cn(screenSize === "small" ? "h-5 w-5" : screenSize === "medium" ? "h-5 w-5" : "h-6 w-6")} />
+      </motion.button>
 
       {/* Custom Modal */}
       <Modal isOpen={isOpen} onClose={handleClose} screenSize={screenSize}>
@@ -147,4 +129,3 @@ const FloatingChatbot = () => {
 }
 
 export default FloatingChatbot
-
