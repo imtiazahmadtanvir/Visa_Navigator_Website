@@ -24,7 +24,7 @@
 //         country: "Japan",
 //       },
 //     ];
-  
+
 //     return (
 //       <section className="py-12 bg-light dark:bg-gray-800 transition duration-500">
 //         <h2 className="text-3xl font-bold text-center mb-6 text-gray-800 dark:text-gray-200">
@@ -56,9 +56,9 @@
 //       </section>
 //     );
 //   };
-  
+
 //   export default Testimonials;
-  
+
 
 "use client"
 

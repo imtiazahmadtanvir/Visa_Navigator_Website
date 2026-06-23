@@ -4,26 +4,15 @@ import { motion, AnimatePresence } from "framer-motion"
 import { AuthContext } from "../provider/AuthProvider"
 import logo from "../assets/logo.png"
 import defaultPic from "../assets/defulteimage.png"
-import { Menu, X, Sun, Moon, ChevronDown, LogOut, UserIcon } from "lucide-react"
+import { Menu, X, ChevronDown, LogOut, UserIcon } from "lucide-react"
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isDarkMode, setIsDarkMode] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const { user, logOut } = useContext(AuthContext)
   const location = useLocation()
 
-  // Check if dark mode is enabled in localStorage on component mount
   useEffect(() => {
-    const savedDarkMode = localStorage.getItem("darkMode") === "true"
-    setIsDarkMode(savedDarkMode)
-
-    if (savedDarkMode) {
-      document.documentElement.classList.add("dark")
-    } else {
-      document.documentElement.classList.remove("dark")
-    }
-
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10)
     }
@@ -31,18 +20,6 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
-
-  const toggleDarkMode = () => {
-    const newDarkMode = !isDarkMode
-    setIsDarkMode(newDarkMode)
-    localStorage.setItem("darkMode", String(newDarkMode))
-
-    if (newDarkMode) {
-      document.documentElement.classList.add("dark")
-    } else {
-      document.documentElement.classList.remove("dark")
-    }
-  }
 
   // Close mobile menu when route changes
   useEffect(() => {
@@ -59,20 +36,19 @@ const Navbar = () => {
     { path: "/all-visas", label: "All Visas" },
     ...(isAdmin
       ? [
-          { path: "/add-visa", label: "Add Visa" },
-          { path: "/my-added-visas", label: "My Added Visas" },
-        ]
+        { path: "/add-visa", label: "Add Visa" },
+        { path: "/my-added-visas", label: "My Added Visas" },
+      ]
       : []),
     ...(user ? [{ path: "/my-visa-applications", label: "My Applications" }] : []),
   ]
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
           ? "bg-white/90 dark:bg-surface-dark/90 backdrop-blur-md shadow-soft py-2"
           : "bg-white/70 dark:bg-surface-dark/70 backdrop-blur-md py-3"
-      }`}
+        }`}
     >
       <div className="container-page flex items-center justify-between">
         {/* Logo and Title */}
@@ -107,11 +83,10 @@ const Navbar = () => {
             <Link
               key={item.path}
               to={item.path}
-              className={`px-3 py-2 rounded-md text-sm font-medium transition-colors relative ${
-                isActive(item.path)
+              className={`px-3 py-2 rounded-md text-sm font-medium transition-colors relative ${isActive(item.path)
                   ? "text-ink-800 dark:text-stamp-300"
                   : "text-ink-500 dark:text-ink-300 hover:text-ink-800 dark:hover:text-white"
-              }`}
+                }`}
             >
               {item.label}
               {isActive(item.path) && (
@@ -126,18 +101,8 @@ const Navbar = () => {
           ))}
         </nav>
 
-        {/* Right Side: User Profile/Login + Dark Mode Toggle */}
+        {/* Right Side: User Profile/Login */}
         <div className="flex items-center gap-2">
-          {/* Dark Mode Toggle */}
-          <motion.button
-            whileTap={{ scale: 0.9 }}
-            onClick={toggleDarkMode}
-            className="p-2 text-ink-600 transition-colors bg-ink-100 rounded-full dark:bg-ink-800 dark:text-ink-200 hover:bg-ink-200 dark:hover:bg-ink-700"
-            aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
-          >
-            {isDarkMode ? <Sun size={18} className="text-stamp-400" /> : <Moon size={18} className="text-ink-700" />}
-          </motion.button>
-
           {/* User Profile or Login/Register (Desktop) */}
           <div className="items-center hidden gap-2 md:flex">
             {user ? (
@@ -215,11 +180,10 @@ const Navbar = () => {
                   <Link
                     key={item.path}
                     to={item.path}
-                    className={`px-4 py-3 rounded-md text-sm font-medium transition-colors ${
-                      isActive(item.path)
+                    className={`px-4 py-3 rounded-md text-sm font-medium transition-colors ${isActive(item.path)
                         ? "bg-stamp-50 dark:bg-stamp-900/20 text-ink-800 dark:text-stamp-300"
                         : "text-ink-600 dark:text-ink-200 hover:bg-ink-50 dark:hover:bg-ink-800"
-                    }`}
+                      }`}
                   >
                     {item.label}
                   </Link>
