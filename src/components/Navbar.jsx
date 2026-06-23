@@ -142,10 +142,10 @@ const Navbar = () => {
               </div>
             ) : (
               <div className="flex items-center gap-2">
-                <Link to="/auth/login" className="btn-ghost">
+                <Link to="/auth/login" className={`${isActive('/auth/login') ? 'btn-primary !py-2' : 'btn-ghost'}`}>
                   Login
                 </Link>
-                <Link to="/auth/register" className="btn-primary !py-2">
+                <Link to="/auth/register" className={`${isActive('/auth/login') ? 'btn-ghost' : 'btn-primary !py-2'}`}>
                   Register
                 </Link>
               </div>
@@ -226,10 +226,10 @@ const Navbar = () => {
                   </div>
                 ) : (
                   <div className="grid grid-cols-2 gap-2 px-4">
-                    <Link to="/auth/login" className="btn-secondary justify-center">
+                    <Link to="/auth/login" className={`${isActive('/auth/login') ? 'btn-primary' : 'btn-secondary'} justify-center`}>
                       Login
                     </Link>
-                    <Link to="/auth/register" className="btn-primary justify-center">
+                    <Link to="/auth/register" className={`${isActive('/auth/login') ? 'btn-secondary' : 'btn-primary'} justify-center`}>
                       Register
                     </Link>
                   </div>
