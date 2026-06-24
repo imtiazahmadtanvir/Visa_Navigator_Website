@@ -22,8 +22,9 @@ Visa Navigator is a user-friendly portal designed to simplify the process of che
 - **Dark/Light Mode Toggle**: Switch between dark and light themes for a customized user experience.
 
 ## Technologies Used:
+-**image upload** : using cludinary 
 - **Frontend**: React, TailwindCSS, DaisyUI
-- **Backend**: Node.js, Express.js, MongoDB
+- **Backend**: Node.js, Express.js, MongoDB 
 - **Authentication**: Firebase Authentication (Email/Password and Google Sign-In)
 - **Hosting**: Client-side hosted on Netlify, Server-side hosted on Vercel
 - **Environment Variables**: Sensitive information (Firebase config, MongoDB credentials) is securely stored in `.env` files.
