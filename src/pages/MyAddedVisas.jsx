@@ -253,6 +253,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Swal from "sweetalert2"
+import useCloudinary from "../hooks/cloudinary"
 import {
   Edit,
   Trash2,
@@ -281,6 +282,9 @@ const MyAddedVisas = () => {
   const [isEmpty, setIsEmpty] = useState(false)
   const [searchTerm, setSearchTerm] = useState("")
   const [filterType, setFilterType] = useState("")
+  const { uploadImage, uploading: isImageUploading, error: imageUploadError } = useCloudinary()
+  const [newCountryImage, setNewCountryImage] = useState("")
+  const [imagePreview, setImagePreview] = useState("")
 
   // Check if visas array is empty
   useEffect(() => {
@@ -370,7 +374,7 @@ const MyAddedVisas = () => {
         fee: e.target.fee.value,
         validity: e.target.validity.value,
         applicationMethod: e.target.applicationMethod.value,
-        countryImage: e.target.countryImage.value,
+        countryImage: newCountryImage,
       }
 
       fetch(`https://visa-navigator-server-omega.vercel.app/add-visa/${selectedVisa._id}`, {
@@ -408,13 +412,25 @@ const MyAddedVisas = () => {
           })
         })
     },
-    [selectedVisa],
+    [selectedVisa, newCountryImage],
   )
 
   const openModal = useCallback((visa) => {
     setSelectedVisa(visa)
+    setNewCountryImage(visa.countryImage)
+    setImagePreview(visa.countryImage)
     setIsModalOpen(true)
   }, [])
+
+  const handleImageFileChange = async (e) => {
+    const file = e.target.files[0]
+    if (!file) return
+    setImagePreview(URL.createObjectURL(file))
+    const url = await uploadImage(file)
+    if (url) {
+      setNewCountryImage(url)
+    }
+  }
 
   const clearFilters = useCallback(() => {
     setSearchTerm("")
@@ -710,14 +726,34 @@ const MyAddedVisas = () => {
               <form onSubmit={handleUpdate} className="p-5">
                 <div className="space-y-4">
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Country Image URL</label>
+                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Country Image</label>
                     <input
-                      type="text"
-                      name="countryImage"
-                      defaultValue={selectedVisa.countryImage}
-                      className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                      required
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageFileChange}
+                      className="hidden"
+                      id="countryImageUploadEdit"
                     />
+                    <label
+                      htmlFor="countryImageUploadEdit"
+                      className="flex items-center justify-center w-full px-4 py-3 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer hover:border-yellow-500 transition-colors"
+                    >
+                      {imagePreview || selectedVisa.countryImage ? (
+                        <img
+                          src={imagePreview || selectedVisa.countryImage}
+                          alt="Preview"
+                          className="max-h-24 rounded-lg object-cover"
+                        />
+                      ) : (
+                        <span className="text-gray-500 dark:text-gray-400 text-sm">Click to upload image</span>
+                      )}
+                    </label>
+                    {isImageUploading && (
+                      <p className="text-xs text-gray-500">Uploading...</p>
+                    )}
+                    {imageUploadError && (
+                      <p className="text-xs text-red-500">{imageUploadError}</p>
+                    )}
                   </div>
 
                   <div className="space-y-2">

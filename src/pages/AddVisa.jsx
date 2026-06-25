@@ -267,7 +267,8 @@ import { motion, AnimatePresence } from "framer-motion"
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Swal from "sweetalert2"
-import { ImageIcon, Globe, FileText, Clock, FileCheck, Info, Users, DollarSign, Calendar, Send, Loader2, Check, ChevronRight, ChevronLeft } from 'lucide-react'
+import { ImageIcon, Globe, FileText, Clock, FileCheck, Info, Users, DollarSign, Calendar, Send, Loader2, Check, ChevronRight, ChevronLeft, UploadCloud } from 'lucide-react'
+import useCloudinary from "../hooks/cloudinary"
 
 const AddVisa = () => {
   return (
@@ -315,6 +316,8 @@ const VisaApplicationForm = () => {
     validity: "",
     applicationMethod: "",
   })
+  const { uploadImage, uploading, error: uploadError } = useCloudinary()
+  const [imagePreview, setImagePreview] = useState("")
 
   const handleInputChange = useCallback((e) => {
     const { name, value } = e.target
@@ -340,6 +343,16 @@ const VisaApplicationForm = () => {
       }
     })
   }, [])
+
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0]
+    if (!file) return
+    setImagePreview(URL.createObjectURL(file))
+    const url = await uploadImage(file)
+    if (url) {
+      setFormData((prev) => ({ ...prev, countryImage: url }))
+    }
+  }
 
   const handleSubmitForm = useCallback(() => {
     setIsSubmitting(true)
@@ -450,18 +463,42 @@ const VisaApplicationForm = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="flex items-center text-gray-700 dark:text-gray-200 font-medium">
-                    <ImageIcon size={18} className="mr-2 text-primary" />
-                    Country Image URL
+                    <UploadCloud size={18} className="mr-2 text-primary" />
+                    Country Image
                   </label>
                   <input
-                    type="text"
-                    name="countryImage"
-                    value={formData.countryImage}
-                    onChange={handleInputChange}
-                    placeholder="Enter image URL"
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary"
-                    required
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    className="hidden"
+                    id="countryImageUpload"
                   />
+                  <label
+                    htmlFor="countryImageUpload"
+                    className="flex items-center justify-center w-full px-4 py-8 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer hover:border-primary transition-colors"
+                  >
+                    {imagePreview || formData.countryImage ? (
+                      <img
+                        src={imagePreview || formData.countryImage}
+                        alt="Preview"
+                        className="max-h-40 rounded-lg object-cover"
+                      />
+                    ) : (
+                      <div className="text-center text-gray-500 dark:text-gray-400">
+                        <ImageIcon size={32} className="mx-auto mb-2" />
+                        <span>Click to upload image</span>
+                      </div>
+                    )}
+                  </label>
+                  {uploading && (
+                    <div className="flex items-center justify-center text-sm text-gray-500 dark:text-gray-400">
+                      <Loader2 size={16} className="animate-spin mr-2" />
+                      Uploading...
+                    </div>
+                  )}
+                  {uploadError && (
+                    <p className="text-sm text-red-500">{uploadError}</p>
+                  )}
                 </div>
 
                 <div className="space-y-2">

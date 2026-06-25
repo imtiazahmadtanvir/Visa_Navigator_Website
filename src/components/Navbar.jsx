@@ -29,7 +29,7 @@ const Navbar = () => {
   const isActive = (path) => location.pathname === path
 
   // Show admin-only links for a specific email, keep applications for any logged-in user
-  const isAdmin = user?.email === "admin@gmail.com"
+  const isAdmin = user?.email === "imtiaztanveer07@gmail.com"
 
   const navItems = [
     { path: "/", label: "Home" },
@@ -50,7 +50,7 @@ const Navbar = () => {
           : "bg-white/70 dark:bg-surface-dark/70 backdrop-blur-md py-3"
         }`}
     >
-      <div className="container-page flex items-center justify-between">
+      <div className="flex items-center justify-between container-page">
         {/* Logo and Title */}
         <Link to="/" className="flex items-center gap-2 group">
           <motion.div
@@ -68,7 +68,7 @@ const Navbar = () => {
             />
           </motion.div>
           <div className="flex flex-col">
-            <span className="text-lg font-display font-bold text-ink-900 transition-colors dark:text-white group-hover:text-ink-700 dark:group-hover:text-stamp-300">
+            <span className="text-lg font-bold transition-colors font-display text-ink-900 dark:text-white group-hover:text-ink-700 dark:group-hover:text-stamp-300">
               Visa Navigator
             </span>
             <span className="hidden text-xs text-ink-400 dark:text-ink-400 sm:block">
@@ -112,7 +112,7 @@ const Navbar = () => {
                     <img
                       src={user?.photoURL || defaultPic}
                       alt={user?.name || "User"}
-                      className="object-cover w-8 h-8 border-2 border-ink-200 rounded-full dark:border-ink-700"
+                      className="object-cover w-8 h-8 border-2 rounded-full border-ink-200 dark:border-ink-700"
                       width={32}
                       height={32}
                     />
@@ -120,11 +120,11 @@ const Navbar = () => {
                   </button>
 
                   {/* Dropdown menu */}
-                  <div className="absolute right-0 z-50 invisible w-48 mt-2 overflow-hidden transition-all duration-200 origin-top-right transform scale-95 card opacity-0 group-hover:opacity-100 group-hover:visible group-hover:scale-100">
+                  <div className="absolute right-0 z-50 invisible w-48 mt-2 overflow-hidden transition-all duration-200 origin-top-right transform scale-95 opacity-0 card group-hover:opacity-100 group-hover:visible group-hover:scale-100">
                     <div className="py-2">
                       <Link
                         to="/profile"
-                        className="flex items-center gap-2 px-4 py-2 text-sm text-ink-600 transition-colors dark:text-ink-200 hover:bg-ink-50 dark:hover:bg-ink-800"
+                        className="flex items-center gap-2 px-4 py-2 text-sm transition-colors text-ink-600 dark:text-ink-200 hover:bg-ink-50 dark:hover:bg-ink-800"
                       >
                         <UserIcon size={16} />
                         Profile
@@ -156,7 +156,7 @@ const Navbar = () => {
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="p-2 text-ink-600 transition-colors rounded-md md:hidden dark:text-ink-200 hover:bg-ink-100 dark:hover:bg-ink-800"
+            className="p-2 transition-colors rounded-md text-ink-600 md:hidden dark:text-ink-200 hover:bg-ink-100 dark:hover:bg-ink-800"
             aria-label="Toggle menu"
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -174,7 +174,7 @@ const Navbar = () => {
             transition={{ duration: 0.3 }}
             className="overflow-hidden bg-white border-t border-ink-100 md:hidden dark:bg-surface-dark dark:border-ink-800"
           >
-            <div className="container-page py-3">
+            <div className="py-3 container-page">
               <nav className="flex flex-col gap-1">
                 {navItems.map((item) => (
                   <Link
@@ -198,7 +198,7 @@ const Navbar = () => {
                       <img
                         src={user?.photoURL || defaultPic}
                         alt={user?.name || "User"}
-                        className="object-cover w-10 h-10 border-2 border-ink-200 rounded-full dark:border-ink-700"
+                        className="object-cover w-10 h-10 border-2 rounded-full border-ink-200 dark:border-ink-700"
                         width={40}
                         height={40}
                       />
@@ -211,7 +211,7 @@ const Navbar = () => {
                     </div>
                     <Link
                       to="/profile"
-                      className="flex items-center gap-2 px-4 py-3 text-sm font-medium text-ink-600 transition-colors rounded-md dark:text-ink-200 hover:bg-ink-50 dark:hover:bg-ink-800"
+                      className="flex items-center gap-2 px-4 py-3 text-sm font-medium transition-colors rounded-md text-ink-600 dark:text-ink-200 hover:bg-ink-50 dark:hover:bg-ink-800"
                     >
                       <UserIcon size={16} />
                       View Profile
