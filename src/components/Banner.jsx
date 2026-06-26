@@ -1,252 +1,236 @@
-"use client"
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { Typewriter } from 'react-simple-typewriter';
+import { CheckCircle, ArrowRight } from 'lucide-react';
+import heroTravel from '../assets/hero-travel.jpg';
+import bg1 from '../assets/bg-1.avif';
+import bg2 from '../assets/bg2.avif';
 
-/* eslint-disable no-unused-vars */
+/* ─── Animation helpers ─── */
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.12, duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  }),
+};
 
-import { useState, useEffect } from "react"
-import { Link } from "react-router-dom"
-import { motion, AnimatePresence } from "framer-motion"
-import { Swiper, SwiperSlide } from "swiper/react"
-import { Autoplay, EffectFade, Pagination } from "swiper/modules"
-import { Typewriter } from "react-simple-typewriter"
-import { Fade, Zoom, Slide } from "react-awesome-reveal"
-import { ArrowRight, MapPin, Globe, Compass } from "lucide-react"
+const staggerContainer = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.2 } },
+};
 
-// Import images
-import bg1 from "../assets/bg-1.avif"
-
-// Import Swiper styles
-import "swiper/css"
-import "swiper/css/effect-fade"
-import "swiper/css/pagination"
-
-// Banner slides data
-const BANNER_SLIDES = [
-  {
-    id: 1,
-    image: bg1,
-    alt: "Visa Process Simplified",
-    title: "Simplify Your Visa Application Journey",
-    subtitle: "Streamlined processes for hassle-free travel documentation",
-    icon: <MapPin className="w-6 h-6 text-stamp-400" />,
+const scaleIn = {
+  hidden: { opacity: 0, scale: 0.85 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
   },
-  {
-    id: 2,
-    image: bg1,
-    alt: "Explore the World",
-    title: "Explore the World Hassle-Free",
-    subtitle: "Your gateway to global adventures and new experiences",
-    icon: <Globe className="w-6 h-6 text-stamp-400" />,
-  },
-  {
-    id: 3,
-    image: bg1,
-    alt: "Global Opportunities",
-    title: "Access Global Opportunities Today",
-    subtitle: "Open doors to international education, business, and more",
-    icon: <Compass className="w-6 h-6 text-stamp-400" />,
-  },
-]
+};
+
+/* ─── Data ─── */
+const stats = [
+  { icon: '✓', label: 'Trusted & Verified', highlight: false },
+  { value: '100%', label: 'Success Rate' },
+  { value: '10+', label: 'Years Experience' },
+  { value: '15+', label: 'Countries Served' },
+];
+
+const partners = [
+  'TravelPro',
+  'VisaWorld',
+  'GlobalPass',
+  'SwiftVisa',
+  'PassportHub',
+  'VisaExpress',
+];
 
 const Banner = () => {
-  const [activeIndex, setActiveIndex] = useState(0)
-  const [imagesLoaded, setImagesLoaded] = useState(false)
-
-  // Preload images for smoother transitions
-  useEffect(() => {
-    const preloadImages = () => {
-      const imagePromises = BANNER_SLIDES.map((slide) => {
-        return new Promise((resolve) => {
-          const img = new Image()
-          img.src = slide.image
-          img.crossOrigin = "anonymous"
-          img.onload = resolve
-        })
-      })
-
-      Promise.all(imagePromises).then(() => {
-        setImagesLoaded(true)
-      })
-    }
-
-    preloadImages()
-  }, [])
-
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
-      },
-    },
-  }
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 10,
-      },
-    },
-  }
-
   return (
-    <div className="w-11/12 lg:w-10/12 mx-auto relative">
-      {/* Decorative elements */}
-      <div className="absolute -top-20 -left-20 w-64 h-64 bg-stamp-400/10 rounded-full blur-3xl pointer-events-none"></div>
-      <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-ink-700/10 rounded-full blur-3xl pointer-events-none"></div>
+    <section className="relative overflow-hidden bg-gradient-to-b from-ink-50/40 via-white to-white">
+      {/* Decorative blobs */}
+      <div className="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full bg-stamp-100/30 blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-32 -left-32 w-[400px] h-[400px] rounded-full bg-ink-100/20 blur-3xl pointer-events-none" />
 
-      <section id="banner" className="py-12 px-4 md:py-16 text-center text-ink-900 dark:text-ink-100 relative">
-        {/* Enhanced Swiper Slider */}
-        {imagesLoaded ? (
-          <Swiper
-            modules={[Autoplay, EffectFade, Pagination]}
-            effect="fade"
-            spaceBetween={0}
-            slidesPerView={1}
-            loop={true}
-            autoplay={{
-              delay: 5000,
-              disableOnInteraction: false,
-            }}
-            pagination={{
-              clickable: true,
-              dynamicBullets: true,
-            }}
-            onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
-            className="mb-12 rounded-2xl overflow-hidden shadow-2xl"
+      {/* ─── Hero Content ─── */}
+      <div className="container-page pt-28 pb-16 md:pt-32 md:pb-20 lg:pt-36 lg:pb-24">
+        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+          {/* ─── Left Column ─── */}
+          <motion.div
+            className="w-full lg:w-[57%] space-y-7"
+            variants={staggerContainer}
+            initial="hidden"
+            animate="visible"
           >
-            {BANNER_SLIDES.map((slide) => (
-              <SwiperSlide key={slide.id}>
-                <div className="w-full h-[500px] relative overflow-hidden group">
-                  <img
-                    src={slide.image || "/placeholder.svg"}
-                    alt={slide.alt}
-                    className="w-full h-full object-cover transition-transform duration-10000 group-hover:scale-105"
-                    loading="eager"
-                    crossOrigin="anonymous"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30 dark:from-ink-950/90 dark:via-ink-900/60 dark:to-ink-900/40 flex flex-col items-center justify-center p-8">
-                    <AnimatePresence mode="wait">
-                      <motion.div
-                        key={slide.id}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        transition={{ duration: 0.5 }}
-                        className="max-w-3xl"
-                      >
-                        <div className="flex justify-center mb-4">
-                          <motion.div
-                            initial={{ scale: 0 }}
-                            animate={{ scale: 1 }}
-                            transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
-                            className="bg-white/10 backdrop-blur-sm p-3 rounded-full"
-                          >
-                            {slide.icon}
-                          </motion.div>
-                        </div>
-                        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">{slide.title}</h2>
-                        <p className="text-lg text-white/80 max-w-2xl mx-auto">{slide.subtitle}</p>
-                      </motion.div>
-                    </AnimatePresence>
-                  </div>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        ) : (
-          <div className="w-full h-[500px] bg-ink-100 dark:bg-ink-800 rounded-2xl animate-pulse flex items-center justify-center mb-12">
-            <div className="w-12 h-12 border-4 border-stamp-400 border-t-transparent rounded-full animate-spin"></div>
-          </div>
-        )}
-
-        {/* Welcome Message with Enhanced Animations */}
-        <motion.div variants={containerVariants} initial="hidden" animate="visible" className="max-w-3xl mx-auto">
-          <motion.div variants={itemVariants} className="mb-6">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-extrabold mb-4 leading-tight">
-              Welcome to{" "}
-              <span className="text-stamp-500 dark:text-stamp-300 relative inline-block">
-                Visa Navigator!
-                <motion.span
-                  className="absolute -bottom-2 left-0 w-full h-1 bg-stamp-400/50 rounded-full"
-                  initial={{ width: 0 }}
-                  animate={{ width: "100%" }}
-                  transition={{ delay: 1, duration: 0.8 }}
-                ></motion.span>
+            {/* Badge */}
+            <motion.div variants={fadeUp} custom={0}>
+              <span className="inline-flex items-center gap-2 bg-stamp-50 text-stamp-600 text-xs font-semibold px-4 py-1.5 rounded-full">
+                ✈️ #1 Visa Navigation Portal in the World
               </span>
-            </h2>
+            </motion.div>
 
-            <div className="text-xl md:text-2xl font-medium text-ink-600 dark:text-ink-300 h-8">
-              <Typewriter
-                words={[
-                  "Start your journey today",
-                  "Explore top destinations",
-                  "Simplify visa applications",
-                  "Travel with confidence",
-                ]}
-                loop={0}
-                cursor
-                cursorStyle="_"
-                typeSpeed={70}
-                deleteSpeed={50}
-                delaySpeed={1500}
-              />
-            </div>
+            {/* Heading */}
+            <motion.h1
+              variants={fadeUp}
+              custom={1}
+              className="font-display text-4xl md:text-5xl lg:text-6xl font-extrabold text-ink-900 leading-tight"
+            >
+              Your visa journey{' '}
+              <br className="hidden sm:block" />
+              <span className="text-stamp-500">
+                <Typewriter
+                  words={['our first priority', 'made seamless', 'starts here']}
+                  loop
+                  cursor
+                  cursorStyle="|"
+                  typeSpeed={70}
+                  deleteSpeed={50}
+                  delaySpeed={2200}
+                />
+              </span>
+            </motion.h1>
+
+            {/* Description */}
+            <motion.p
+              variants={fadeUp}
+              custom={2}
+              className="text-ink-500 text-base md:text-lg max-w-xl leading-relaxed"
+            >
+              Your visa matters more than a typical approval. With our experienced
+              team, your visa is approved with care when you trust us.
+            </motion.p>
+
+            {/* CTAs */}
+            <motion.div
+              variants={fadeUp}
+              custom={3}
+              className="flex flex-wrap items-center gap-3.5"
+            >
+              <Link
+                to="/all-visas"
+                className="btn-secondary inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold"
+              >
+                Get Started Now
+                <ArrowRight size={16} />
+              </Link>
+              <Link
+                to="/all-visas"
+                className="btn-primary inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold"
+              >
+                Apply for Visa
+              </Link>
+            </motion.div>
+
+            {/* Trust Stats */}
+            <motion.div
+              variants={fadeUp}
+              custom={4}
+              className="flex flex-wrap items-center gap-5 pt-2"
+            >
+              {stats.map((s, i) => (
+                <div key={i} className="flex items-center gap-2">
+                  {s.icon ? (
+                    <span className="flex items-center justify-center h-7 w-7 rounded-full bg-green-100 text-green-600 text-xs font-bold">
+                      <CheckCircle size={16} />
+                    </span>
+                  ) : (
+                    <span className="font-display font-extrabold text-xl text-ink-900">
+                      {s.value}
+                    </span>
+                  )}
+                  <span className="text-ink-500 text-sm font-medium">{s.label}</span>
+                  {i < stats.length - 1 && (
+                    <span className="hidden sm:block w-px h-5 bg-ink-200 ml-3" />
+                  )}
+                </div>
+              ))}
+            </motion.div>
           </motion.div>
 
-          <Fade cascade damping={0.2} triggerOnce>
-            <p className="text-lg md:text-xl text-ink-500 dark:text-ink-400 mb-8 leading-relaxed">
-              Discover a seamless way to manage and apply for visas. Our platform streamlines the entire process, making
-              international travel more accessible than ever before.
-            </p>
-          </Fade>
+          {/* ─── Right Column ─── */}
+          <motion.div
+            className="w-full lg:w-[43%] relative"
+            initial="hidden"
+            animate="visible"
+            variants={staggerContainer}
+          >
+            {/* Main Image */}
+            <motion.div
+              variants={scaleIn}
+              className="relative rounded-2xl overflow-hidden shadow-soft-lg aspect-[4/5] md:aspect-[3/4]"
+            >
+              <img
+                src={heroTravel}
+                alt="Travel destination"
+                className="w-full h-full object-cover"
+              />
+              {/* Gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-ink-900/30 via-transparent to-transparent" />
+            </motion.div>
 
-          <Zoom delay={300} triggerOnce>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Link to="/all-visas" className="btn-primary !px-6 !py-3 !text-base">
-                  Explore Visas Now
-                  <ArrowRight className="w-5 h-5" />
-                </Link>
-              </motion.div>
+            {/* Secondary image – top-left overlap */}
+            <motion.div
+              variants={fadeUp}
+              custom={2}
+              className="hidden md:block absolute -left-8 top-12 w-28 h-28 lg:w-36 lg:h-36 rounded-xl2 overflow-hidden shadow-soft-lg ring-4 ring-white"
+            >
+              <img src={bg1} alt="Destination" className="w-full h-full object-cover" />
+            </motion.div>
 
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Link to="/add-visa" className="btn-secondary !px-6 !py-3 !text-base">
-                  Apply for a Visa
-                  <ArrowRight className="w-5 h-5" />
-                </Link>
-              </motion.div>
-            </div>
-          </Zoom>
+            {/* Secondary image – bottom-left overlap */}
+            <motion.div
+              variants={fadeUp}
+              custom={3}
+              className="hidden md:block absolute -left-6 bottom-16 w-24 h-24 lg:w-32 lg:h-32 rounded-xl2 overflow-hidden shadow-soft-lg ring-4 ring-white"
+            >
+              <img src={bg2} alt="Destination" className="w-full h-full object-cover" />
+            </motion.div>
 
-          {/* Stats Section */}
-          <Slide direction="up" triggerOnce delay={400}>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
-              {[
-                { count: "100+", label: "Countries" },
-                { count: "10K+", label: "Successful Applications" },
-                { count: "24/7", label: "Customer Support" },
-              ].map((stat, index) => (
-                <motion.div key={index} whileHover={{ y: -5 }} className="card-hover p-6">
-                  <h3 className="text-3xl font-display font-bold text-stamp-500 dark:text-stamp-300 mb-2">
-                    {stat.count}
-                  </h3>
-                  <p className="text-ink-500 dark:text-ink-400">{stat.label}</p>
-                </motion.div>
-              ))}
-            </div>
-          </Slide>
-        </motion.div>
-      </section>
-    </div>
-  )
-}
+            {/* Floating Stats Card */}
+            <motion.div
+              variants={fadeUp}
+              custom={4}
+              className="absolute -bottom-4 right-4 md:right-6 bg-white rounded-xl2 shadow-soft-lg px-5 py-4 flex items-center gap-3 border border-ink-100/50"
+            >
+              <span className="flex items-center justify-center h-11 w-11 rounded-full bg-stamp-50">
+                <span className="text-stamp-500 text-lg font-bold">🌍</span>
+              </span>
+              <div>
+                <p className="font-display text-2xl font-extrabold text-ink-900">800+</p>
+                <p className="text-ink-400 text-xs font-medium">Satisfied Clients</p>
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </div>
 
-export default Banner
+      {/* ─── Trusted Partners Strip ─── */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1, duration: 0.8 }}
+        className="border-t border-ink-100/60 bg-ink-50/30"
+      >
+        <div className="container-page py-8">
+          <p className="text-center text-ink-400 text-sm mb-5">
+            Trusted by travelers and organizations worldwide
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
+            {partners.map((name) => (
+              <span
+                key={name}
+                className="text-ink-300 font-semibold text-lg select-none tracking-tight transition-colors hover:text-ink-500"
+              >
+                {name}
+              </span>
+            ))}
+          </div>
+        </div>
+      </motion.div>
+    </section>
+  );
+};
+
+export default Banner;

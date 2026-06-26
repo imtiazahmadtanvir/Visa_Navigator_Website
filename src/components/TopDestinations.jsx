@@ -1,311 +1,197 @@
-// import { Link } from "react-router-dom";
-// import usa from "../assets/usa.jpg"
-// import can from "../assets/Canada.jpg"
-// import aus from "../assets/Australia.webp"
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { CheckCircle, Clock, ArrowRight } from 'lucide-react';
 
+import usa from '../assets/usa.jpg';
+import can from '../assets/Canada.jpg';
+import aus from '../assets/Australia.webp';
+import germany from '../assets/germany.webp';
+import india from '../assets/india.webp';
+import japan from '../assets/japan.jpg';
 
+const destinations = [
+  {
+    id: 1,
+    name: 'USA',
+    flag: '🇺🇸',
+    image: usa,
+    categories: ['Tourist', 'Student', 'Work'],
+    successRate: '92%',
+    processingTime: '2-4 weeks',
+  },
+  {
+    id: 2,
+    name: 'Canada',
+    flag: '🇨🇦',
+    image: can,
+    categories: ['Tourist', 'Student', 'Business'],
+    successRate: '89%',
+    processingTime: '3-5 weeks',
+  },
+  {
+    id: 3,
+    name: 'Australia',
+    flag: '🇦🇺',
+    image: aus,
+    categories: ['Student', 'Work', 'Tourist'],
+    successRate: '85%',
+    processingTime: '4-6 weeks',
+  },
+  {
+    id: 4,
+    name: 'Germany',
+    flag: '🇩🇪',
+    image: germany,
+    categories: ['Work', 'Student', 'Business'],
+    successRate: '88%',
+    processingTime: '3-4 weeks',
+  },
+  {
+    id: 5,
+    name: 'India',
+    flag: '🇮🇳',
+    image: india,
+    categories: ['Tourist', 'Business'],
+    successRate: '90%',
+    processingTime: '1-2 weeks',
+  },
+  {
+    id: 6,
+    name: 'Japan',
+    flag: '🇯🇵',
+    image: japan,
+    categories: ['Tourist', 'Work', 'Student'],
+    successRate: '87%',
+    processingTime: '2-3 weeks',
+  },
+];
 
-// const TopDestinations = () => {
-//   const destinations = [
-//     {
-//       id: 1,
-//       country: "USA",
-//       image: usa,
-//       stats: "10,000 Visas Approved",
-//     },
-//     {
-//       id: 2,
-//       country: "Canada",
-//       image: can,
-//       stats: "8,500 Visas Approved",
-//     },
-//     {
-//       id: 3,
-//       country: "Australia",
-//       image: aus,
-//       stats: "7,000 Visas Approved",
-//     },
-//   ];
-
-//   return (
-//     <section className="py-12 bg-light  dark:bg-gray-800 transition duration-500">
-//       <h2 className="text-3xl font-bold text-center mb-6 text-gray-800 dark:text-gray-200">
-//         Top Visa Destinations
-//       </h2>
-//       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 container mx-auto ">
-//         {destinations.map((destination) => (
-//           <div key={destination.id} className="card shadow-lg rounded-lg overflow-hidden bg-white dark:bg-white">
-//             <img
-//               src={destination.image}
-//               alt={destination.country}
-//               className="w-full h-40 object-cover"
-//             />
-//             <div className="p-4 text-center">
-//               <h3 className="text-2xl font-semibold text-gray-900">
-//                 {destination.country}
-//               </h3>
-//               <p className="text-sm text-gray-600 ">
-//                 {destination.stats}
-//               </p>
-//               <Link
-//                 to={`/all-visas?country=${destination.country}`}
-//                 className="btn mt-5 btn-primary bg-yellow-500 text-gray-800 border-none font-semibold px-6 py-3 rounded-lg hover:bg-yellow-500 hover:shadow-md transition dark:bg-yellow-500  dark:hover:bg-yellow-600 w-1/2 mx-auto"
-//                 >
-//                 Explore Visas
-//               </Link>
-//             </div>
-//           </div>
-//         ))}
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default TopDestinations;
-
-
-
-"use client"
-
-import { useState } from "react"
-import { Link } from "react-router-dom"
-import { motion } from "framer-motion"
-import { MapPin, Users, Award, TrendingUp, ArrowRight, Globe, Check } from "lucide-react"
-
-// Import images
-import usa from "../assets/usa.jpg"
-import can from "../assets/Canada.jpg"
-import aus from "../assets/Australia.webp"
+const tabs = ['All', 'Tourist', 'Student', 'Work', 'Business'];
 
 const TopDestinations = () => {
-  const [hoveredId, setHoveredId] = useState(null)
+  const [activeTab, setActiveTab] = useState('All');
 
-  // Enhanced destinations data
-  const destinations = [
-    {
-      id: 1,
-      country: "USA",
-      image: usa,
-      stats: "10,000+ Visas Approved",
-      description: "Experience the American dream with diverse opportunities for work, study, and tourism.",
-      successRate: "92%",
-      processingTime: "2-4 weeks",
-      flag: "🇺🇸",
-      popular: ["Tourist", "Student", "Work"],
-    },
-    {
-      id: 2,
-      country: "Canada",
-      image: can,
-      stats: "8,500+ Visas Approved",
-      description: "Discover Canada's welcoming immigration policies and high quality of life.",
-      successRate: "89%",
-      processingTime: "3-5 weeks",
-      flag: "🇨🇦",
-      popular: ["Express Entry", "Student", "Family"],
-    },
-    {
-      id: 3,
-      country: "Australia",
-      image: aus,
-      stats: "7,000+ Visas Approved",
-      description: "Explore Australia's vibrant cities, stunning landscapes, and growing economy.",
-      successRate: "85%",
-      processingTime: "4-6 weeks",
-      flag: "🇦🇺",
-      popular: ["Skilled Worker", "Holiday", "Student"],
-    },
-  ]
-
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  }
-
-  const cardVariants = {
-    hidden: { y: 50, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 12,
-      },
-    },
-  }
+  const filtered =
+    activeTab === 'All'
+      ? destinations
+      : destinations.filter((d) => d.categories.includes(activeTab));
 
   return (
-    <section className="py-16 bg-gray-50 dark:bg-gray-900 relative overflow-hidden">
-      {/* Decorative elements */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-        <div className="absolute -top-24 -right-24 w-96 h-96 bg-yellow-400/5 rounded-full"></div>
-        <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-blue-400/5 rounded-full"></div>
-      </div>
-
-      <div className="container mx-auto px-4 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
+    <section
+      id="destinations"
+      className="py-20 bg-surface-subtle dark:bg-surface-dark"
+    >
+      <div className="container-page">
+        {/* Header */}
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12"
+          className="text-3xl md:text-4xl font-display font-bold text-ink-900 dark:text-white text-center"
         >
-          <div className="inline-flex items-center justify-center mb-4">
-            <span className="p-2 bg-yellow-100 dark:bg-yellow-900/30 rounded-full">
-              <Globe className="h-6 w-6 text-yellow-500" />
-            </span>
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-4">Top Visa Destinations</h2>
-          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Explore the most popular countries with high visa approval rates and exciting opportunities.
-          </p>
-        </motion.div>
+          Meet Our Visa Destinations
+        </motion.h2>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="grid grid-cols-1 md:grid-cols-3 gap-8"
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="text-ink-500 dark:text-ink-400 text-center max-w-2xl mx-auto mb-8 mt-3"
         >
-          {destinations.map((destination) => (
-            <motion.div
-              key={destination.id}
-              variants={cardVariants}
-              onMouseEnter={() => setHoveredId(destination.id)}
-              onMouseLeave={() => setHoveredId(null)}
-              className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
+          Explore the most popular countries with high visa approval rates
+        </motion.p>
+
+        {/* Filter Tabs */}
+        <div className="flex flex-wrap justify-center gap-2 mb-10">
+          {tabs.map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`px-5 py-2 rounded-full text-sm font-medium transition-all cursor-pointer ${
+                activeTab === tab
+                  ? 'bg-ink-700 text-white'
+                  : 'bg-ink-50 dark:bg-ink-800 text-ink-600 dark:text-ink-300 hover:bg-ink-100 dark:hover:bg-ink-700'
+              }`}
             >
-              <div className="relative h-56 overflow-hidden">
-                <motion.img
-                  src={destination.image}
-                  alt={destination.country}
-                  className="w-full h-full object-cover"
-                  animate={{
-                    scale: hoveredId === destination.id ? 1.05 : 1,
-                  }}
-                  transition={{ duration: 0.4 }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
+              {tab}
+            </button>
+          ))}
+        </div>
 
-                <div className="absolute top-4 left-4 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full px-3 py-1 flex items-center">
-                  <span className="text-xl mr-2">{destination.flag}</span>
-                  <span className="font-semibold text-gray-800 dark:text-white">{destination.country}</span>
+        {/* Destination Grid */}
+        <motion.div
+          layout
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
+          <AnimatePresence mode="popLayout">
+            {filtered.map((dest) => (
+              <motion.div
+                key={dest.id}
+                layout
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.35 }}
+                className="bg-white dark:bg-surface-dark-subtle rounded-xl2 border border-ink-100 dark:border-ink-800 overflow-hidden hover:shadow-soft-lg transition-all group"
+              >
+                {/* Image */}
+                <div className="h-48 overflow-hidden">
+                  <img
+                    src={dest.image}
+                    alt={dest.name}
+                    className="h-48 w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
                 </div>
 
-                <div className="absolute bottom-4 left-4 right-4">
-                  <div className="flex items-center text-white mb-2">
-                    <Award className="h-4 w-4 mr-1 text-yellow-400" />
-                    <span className="text-sm font-medium">{destination.stats}</span>
-                  </div>
-                  <div className="flex items-center text-white">
-                    <TrendingUp className="h-4 w-4 mr-1 text-green-400" />
-                    <span className="text-sm font-medium">{destination.successRate} Success Rate</span>
-                  </div>
-                </div>
-              </div>
+                {/* Body */}
+                <div className="p-5">
+                  <h3 className="text-xl font-display font-semibold text-ink-900 dark:text-white">
+                    {dest.flag} {dest.name}
+                  </h3>
 
-              <div className="p-5">
-                <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-3 flex items-center">
-                  <MapPin className="h-5 w-5 mr-2 text-yellow-500" />
-                  {destination.country}
-                </h3>
-
-                <p className="text-gray-600 dark:text-gray-300 mb-4">{destination.description}</p>
-
-                <div className="mb-5">
-                  <div className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Popular Visa Types:</div>
-                  <div className="flex flex-wrap gap-2">
-                    {destination.popular.map((type, index) => (
+                  {/* Category Badges */}
+                  <div className="flex flex-wrap gap-1.5 mt-2">
+                    {dest.categories.map((cat) => (
                       <span
-                        key={index}
-                        className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300"
+                        key={cat}
+                        className="bg-ink-50 dark:bg-ink-800 text-ink-600 dark:text-ink-300 text-xs px-2.5 py-1 rounded-full"
                       >
-                        <Check className="h-3 w-3 mr-1" />
-                        {type}
+                        {cat}
                       </span>
                     ))}
                   </div>
-                </div>
 
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center text-gray-600 dark:text-gray-300">
-                    <Users className="h-4 w-4 mr-1 text-blue-500" />
-                    <span className="text-sm">{destination.processingTime}</span>
+                  {/* Stats */}
+                  <div className="flex items-center gap-4 mt-4 text-sm">
+                    <span className="flex items-center gap-1 text-emerald-600">
+                      <CheckCircle className="w-4 h-4" />
+                      {dest.successRate}
+                    </span>
+                    <span className="flex items-center gap-1 text-ink-500 dark:text-ink-400">
+                      <Clock className="w-4 h-4" />
+                      {dest.processingTime}
+                    </span>
                   </div>
-                </div>
 
-                <Link
-                  to={`/all-visas?country=${destination.country}`}
-                  className="flex items-center justify-center gap-2 w-full py-3 bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-medium rounded-lg transition-colors"
-                >
-                  Explore Visas
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Additional section - Featured destination */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.5 }}
-          className="mt-16 bg-gradient-to-r from-yellow-400/10 to-amber-400/10 dark:from-yellow-900/20 dark:to-amber-900/20 rounded-2xl p-8 relative overflow-hidden"
-        >
-          <div className="absolute top-0 right-0 w-64 h-64 bg-yellow-400/20 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
-
-          <div className="relative z-10 flex flex-col md:flex-row items-center gap-8">
-            <div className="md:w-1/2">
-              <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">
-                Need Help Choosing Your Destination?
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-6">
-                Our visa experts can help you find the perfect destination based on your qualifications, goals, and
-                preferences. Get personalized recommendations and increase your chances of approval.
-              </p>
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-medium rounded-lg transition-colors"
-              >
-                Get Expert Advice
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
-
-            <div className="md:w-1/2 flex justify-center">
-              <motion.div
-                initial={{ scale: 0.8, rotate: -5 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{ delay: 0.8, type: "spring", stiffness: 100 }}
-                className="relative"
-              >
-                <div className="w-64 h-64 rounded-full bg-gradient-to-r from-yellow-400/30 to-amber-500/30 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 blur-xl"></div>
-                <div className="relative bg-white dark:bg-gray-800 p-6 rounded-xl shadow-xl transform rotate-3 hover:rotate-0 transition-transform duration-300">
-                  <div className="flex items-center justify-center mb-4">
-                    <div className="w-16 h-16 rounded-full bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center">
-                      <Globe className="h-8 w-8 text-yellow-500" />
-                    </div>
-                  </div>
-                  <div className="text-center">
-                    <h4 className="font-bold text-gray-800 dark:text-white">Global Visa Success</h4>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm">25,000+ successful applications</p>
-                  </div>
+                  {/* CTA */}
+                  <Link
+                    to={`/all-visas?country=${dest.name}`}
+                    className="btn-ghost mt-4 border border-ink-200 dark:border-ink-700 w-full justify-center inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-ink-700 dark:text-ink-200 hover:bg-ink-50 dark:hover:bg-ink-800 transition-colors"
+                  >
+                    Explore Visas
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
                 </div>
               </motion.div>
-            </div>
-          </div>
+            ))}
+          </AnimatePresence>
         </motion.div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default TopDestinations
-
+export default TopDestinations;
