@@ -9,8 +9,6 @@ import { Menu, X, ChevronDown, LogOut, UserIcon } from 'lucide-react';
 const ADMIN_EMAIL = 'imtiaztanveer07@gmail.com';
 
 const baseLinks = [
-  { label: 'Home', path: '/' },
-  { label: 'About Us', path: '#about' },
   { label: 'Services', path: '#services' },
   { label: 'Destinations', path: '#destinations' },
 ];
@@ -95,34 +93,34 @@ const Navbar = () => {
             : 'bg-transparent'
         }`}
       >
-        <nav className="container-page flex items-center justify-between h-16 md:h-[72px]">
+        <nav className="container-page flex items-center justify-between h-14 md:h-16">
           {/* ─── Logo ─── */}
           <Link to="/" className="flex items-center gap-2.5 group shrink-0">
             <img
               src={logo}
               alt="Visa Navigator"
-              className="h-9 w-9 object-contain rounded-lg transition-transform duration-300 group-hover:scale-105"
+              className="h-8 w-8 object-contain rounded-lg transition-transform duration-300 group-hover:scale-105"
             />
-            <span className="font-display font-bold text-lg text-ink-900 tracking-tight hidden sm:inline">
+            <span className="font-display font-bold text-base text-ink-900 tracking-tight hidden sm:inline">
               Visa <span className="text-stamp-500">Navigator</span>
             </span>
           </Link>
 
           {/* ─── Desktop Links ─── */}
-          <ul className="hidden lg:flex items-center gap-1">
+          <ul className="hidden lg:flex items-center gap-0.5">
             {navLinks.map((link) => (
               <li key={link.path} className="relative">
                 {link.path.startsWith('#') ? (
                   <button
                     onClick={() => handleNavClick(link.path)}
-                    className="relative px-3.5 py-2 text-sm font-medium text-ink-600 hover:text-ink-900 transition-colors rounded-lg"
+                    className="relative px-3 py-1.5 text-sm font-medium text-ink-600 hover:text-ink-900 transition-colors rounded-lg"
                   >
                     {link.label}
                   </button>
                 ) : (
                   <Link
                     to={link.path}
-                    className="relative px-3.5 py-2 text-sm font-medium text-ink-600 hover:text-ink-900 transition-colors rounded-lg inline-block"
+                    className="relative px-3 py-1.5 text-sm font-medium text-ink-600 hover:text-ink-900 transition-colors rounded-lg inline-block"
                   >
                     {link.label}
                     {isActive(link.path) && (
@@ -199,7 +197,7 @@ const Navbar = () => {
                 </AnimatePresence>
               </div>
             ) : (
-              <Link to="/auth/login" className="btn-primary text-sm px-5 py-2 rounded-full">
+              <Link to="/auth/login" className="btn-primary text-sm px-4 py-2 rounded-full">
                 Contact Us
               </Link>
             )}
@@ -238,7 +236,7 @@ const Navbar = () => {
               className="fixed top-0 right-0 z-50 h-full w-[280px] bg-white shadow-soft-lg lg:hidden flex flex-col"
             >
               {/* Mobile header */}
-              <div className="flex items-center justify-between px-5 h-16 border-b border-ink-100/60">
+              <div className="flex items-center justify-between px-5 h-14 border-b border-ink-100/60">
                 <Link
                   to="/"
                   className="flex items-center gap-2"

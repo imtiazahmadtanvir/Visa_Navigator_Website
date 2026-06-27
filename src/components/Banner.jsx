@@ -1,41 +1,49 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Typewriter } from 'react-simple-typewriter';
-import { CheckCircle, ArrowRight } from 'lucide-react';
+import { CheckCircle, ArrowRight, Shield, Globe } from 'lucide-react';
 import heroTravel from '../assets/hero-travel.jpg';
 import bg1 from '../assets/bg-1.avif';
 import bg2 from '../assets/bg2.avif';
 
 /* ─── Animation helpers ─── */
 const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 24 },
   visible: (i = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.12, duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+    transition: { delay: i * 0.12, duration: 0.55, ease: [0.22, 1, 0.36, 1] },
   }),
 };
 
 const staggerContainer = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.2 } },
+  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.15 } },
 };
 
 const scaleIn = {
-  hidden: { opacity: 0, scale: 0.85 },
+  hidden: { opacity: 0, scale: 0.88 },
   visible: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+/* Subtle floating animation for the stats card */
+const floatingY = {
+  y: [0, -8, 0],
+  transition: {
+    duration: 3.5,
+    repeat: Infinity,
+    ease: 'easeInOut',
   },
 };
 
 /* ─── Data ─── */
-const stats = [
-  { icon: '✓', label: 'Trusted & Verified', highlight: false },
-  { value: '100%', label: 'Success Rate' },
-  { value: '10+', label: 'Years Experience' },
-  { value: '15+', label: 'Countries Served' },
+const trustPoints = [
+  { icon: Shield, label: 'Verified & Secure' },
+  { icon: Globe, label: '15+ Countries' },
 ];
 
 const partners = [
@@ -51,23 +59,23 @@ const Banner = () => {
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-ink-50/40 via-white to-white">
       {/* Decorative blobs */}
-      <div className="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full bg-stamp-100/30 blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-32 -left-32 w-[400px] h-[400px] rounded-full bg-ink-100/20 blur-3xl pointer-events-none" />
+      <div className="absolute -top-32 -right-32 w-[420px] h-[420px] rounded-full bg-stamp-100/25 blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-24 -left-24 w-[340px] h-[340px] rounded-full bg-ink-100/20 blur-3xl pointer-events-none" />
 
       {/* ─── Hero Content ─── */}
-      <div className="container-page pt-28 pb-16 md:pt-32 md:pb-20 lg:pt-36 lg:pb-24">
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+      <div className="container-page pt-6 pb-10 md:pt-8 md:pb-14 lg:pt-10 lg:pb-16">
+        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-14">
           {/* ─── Left Column ─── */}
           <motion.div
-            className="w-full lg:w-[57%] space-y-7"
+            className="w-full lg:w-[55%] space-y-6"
             variants={staggerContainer}
             initial="hidden"
             animate="visible"
           >
             {/* Badge */}
             <motion.div variants={fadeUp} custom={0}>
-              <span className="inline-flex items-center gap-2 bg-stamp-50 text-stamp-600 text-xs font-semibold px-4 py-1.5 rounded-full">
-                ✈️ #1 Visa Navigation Portal in the World
+              <span className="inline-flex items-center gap-2 bg-stamp-50 text-stamp-600 text-xs font-semibold px-4 py-1.5 rounded-full ring-1 ring-stamp-200/50">
+                ✈️ Trusted Visa Partner Since 2015
               </span>
             </motion.div>
 
@@ -75,13 +83,13 @@ const Banner = () => {
             <motion.h1
               variants={fadeUp}
               custom={1}
-              className="font-display text-4xl md:text-5xl lg:text-6xl font-extrabold text-ink-900 leading-tight"
+              className="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-[3.375rem] font-extrabold text-ink-900 leading-[1.15]"
             >
               Your visa journey{' '}
               <br className="hidden sm:block" />
               <span className="text-stamp-500">
                 <Typewriter
-                  words={['our first priority', 'made seamless', 'starts here']}
+                  words={['starts here', 'made seamless', 'our first priority']}
                   loop
                   cursor
                   cursorStyle="|"
@@ -96,62 +104,66 @@ const Banner = () => {
             <motion.p
               variants={fadeUp}
               custom={2}
-              className="text-ink-500 text-base md:text-lg max-w-xl leading-relaxed"
+              className="text-ink-500 text-base md:text-lg max-w-lg leading-relaxed"
             >
-              Your visa matters more than a typical approval. With our experienced
-              team, your visa is approved with care when you trust us.
+              Navigate complex visa processes with confidence. Our expert team
+              provides personalized guidance to ensure fast approvals and
+              hassle-free travel worldwide.
             </motion.p>
 
             {/* CTAs */}
             <motion.div
               variants={fadeUp}
               custom={3}
-              className="flex flex-wrap items-center gap-3.5"
+              className="flex flex-wrap items-center gap-3"
             >
               <Link
                 to="/all-visas"
-                className="btn-secondary inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold"
-              >
-                Get Started Now
-                <ArrowRight size={16} />
-              </Link>
-              <Link
-                to="/all-visas"
-                className="btn-primary inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold"
+                className="btn-accent inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold shadow-soft hover:shadow-soft-lg transition-all duration-200"
               >
                 Apply for Visa
+                <ArrowRight size={16} />
               </Link>
+              <button
+                onClick={() => {
+                  const el = document.querySelector('#services');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="btn-secondary inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold"
+              >
+                Explore Services
+              </button>
             </motion.div>
 
-            {/* Trust Stats */}
+            {/* Trust indicators */}
             <motion.div
               variants={fadeUp}
               custom={4}
-              className="flex flex-wrap items-center gap-5 pt-2"
+              className="flex flex-wrap items-center gap-5 pt-1"
             >
-              {stats.map((s, i) => (
+              {trustPoints.map((tp, i) => (
                 <div key={i} className="flex items-center gap-2">
-                  {s.icon ? (
-                    <span className="flex items-center justify-center h-7 w-7 rounded-full bg-green-100 text-green-600 text-xs font-bold">
-                      <CheckCircle size={16} />
-                    </span>
-                  ) : (
-                    <span className="font-display font-extrabold text-xl text-ink-900">
-                      {s.value}
-                    </span>
-                  )}
-                  <span className="text-ink-500 text-sm font-medium">{s.label}</span>
-                  {i < stats.length - 1 && (
+                  <span className="flex items-center justify-center h-7 w-7 rounded-full bg-green-100 text-green-600">
+                    <tp.icon size={15} />
+                  </span>
+                  <span className="text-ink-600 text-sm font-medium">{tp.label}</span>
+                  {i < trustPoints.length - 1 && (
                     <span className="hidden sm:block w-px h-5 bg-ink-200 ml-3" />
                   )}
                 </div>
               ))}
+              <div className="flex items-center gap-2">
+                <span className="flex items-center justify-center h-7 w-7 rounded-full bg-green-100 text-green-600">
+                  <CheckCircle size={15} />
+                </span>
+                <span className="text-ink-600 text-sm font-medium">100% Success Rate</span>
+              </div>
             </motion.div>
           </motion.div>
 
           {/* ─── Right Column ─── */}
           <motion.div
-            className="w-full lg:w-[43%] relative"
+            className="w-full lg:w-[45%] relative"
             initial="hidden"
             animate="visible"
             variants={staggerContainer}
@@ -159,7 +171,7 @@ const Banner = () => {
             {/* Main Image */}
             <motion.div
               variants={scaleIn}
-              className="relative rounded-2xl overflow-hidden shadow-soft-lg aspect-[4/5] md:aspect-[3/4]"
+              className="relative rounded-2xl overflow-hidden shadow-soft-lg aspect-[5/6] md:aspect-[4/5]"
             >
               <img
                 src={heroTravel}
@@ -174,7 +186,7 @@ const Banner = () => {
             <motion.div
               variants={fadeUp}
               custom={2}
-              className="hidden md:block absolute -left-8 top-12 w-28 h-28 lg:w-36 lg:h-36 rounded-xl2 overflow-hidden shadow-soft-lg ring-4 ring-white"
+              className="hidden md:block absolute -left-6 top-10 w-24 h-24 lg:w-32 lg:h-32 rounded-xl2 overflow-hidden shadow-soft-lg ring-4 ring-white"
             >
               <img src={bg1} alt="Destination" className="w-full h-full object-cover" />
             </motion.div>
@@ -183,22 +195,23 @@ const Banner = () => {
             <motion.div
               variants={fadeUp}
               custom={3}
-              className="hidden md:block absolute -left-6 bottom-16 w-24 h-24 lg:w-32 lg:h-32 rounded-xl2 overflow-hidden shadow-soft-lg ring-4 ring-white"
+              className="hidden md:block absolute -left-5 bottom-14 w-20 h-20 lg:w-28 lg:h-28 rounded-xl2 overflow-hidden shadow-soft-lg ring-4 ring-white"
             >
               <img src={bg2} alt="Destination" className="w-full h-full object-cover" />
             </motion.div>
 
-            {/* Floating Stats Card */}
+            {/* Floating Stats Card with subtle animation */}
             <motion.div
               variants={fadeUp}
               custom={4}
-              className="absolute -bottom-4 right-4 md:right-6 bg-white rounded-xl2 shadow-soft-lg px-5 py-4 flex items-center gap-3 border border-ink-100/50"
+              animate={floatingY}
+              className="absolute -bottom-3 right-3 md:right-5 bg-white/95 backdrop-blur-sm rounded-xl2 shadow-soft-lg px-4 py-3 flex items-center gap-3 border border-ink-100/50"
             >
-              <span className="flex items-center justify-center h-11 w-11 rounded-full bg-stamp-50">
-                <span className="text-stamp-500 text-lg font-bold">🌍</span>
+              <span className="flex items-center justify-center h-10 w-10 rounded-full bg-stamp-50">
+                <span className="text-stamp-500 text-base font-bold">🌍</span>
               </span>
               <div>
-                <p className="font-display text-2xl font-extrabold text-ink-900">800+</p>
+                <p className="font-display text-xl font-extrabold text-ink-900">800+</p>
                 <p className="text-ink-400 text-xs font-medium">Satisfied Clients</p>
               </div>
             </motion.div>
@@ -210,11 +223,11 @@ const Banner = () => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 0.8 }}
+        transition={{ delay: 0.9, duration: 0.7 }}
         className="border-t border-ink-100/60 bg-ink-50/30"
       >
-        <div className="container-page py-8">
-          <p className="text-center text-ink-400 text-sm mb-5">
+        <div className="container-page py-6">
+          <p className="text-center text-ink-400 text-sm mb-4">
             Trusted by travelers and organizations worldwide
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">

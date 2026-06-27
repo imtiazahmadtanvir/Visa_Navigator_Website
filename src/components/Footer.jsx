@@ -4,7 +4,7 @@ import logo from '../assets/logo.png';
 
 const quickLinks = [
   { label: 'Home', to: '/' },
-  { label: 'About Us', to: '/about' },
+  { label: 'About Us', to: '/#about' },
   { label: 'Services', to: '/services' },
   { label: 'Destinations', to: '/#destinations' },
 ];
